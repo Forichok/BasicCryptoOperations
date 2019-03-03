@@ -89,6 +89,7 @@
     <Compile Include="Models\Part3Model.cs" />
     <Compile Include="Validation\BinaryValidationRule.cs" />
     <Compile Include="Validation\BitPositionValidation.cs" />
+    <Compile Include="Validation\ByteSwapValidation.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Part1ViewModel.cs" />
     <Compile Include="ViewModels\Part2ViewModel.cs" />

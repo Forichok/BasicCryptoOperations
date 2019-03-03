@@ -1,5 +1,4 @@
-﻿
-    <Window x:Class="BasicCryptoOperations.MainWindow"
+﻿<Window x:Class="BasicCryptoOperations.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,127 +15,157 @@
     </Window.DataContext>
 
 
-        <Window.Resources>
+    <Window.Resources>
 
-        </Window.Resources>
+    </Window.Resources>
 
     <Grid>
         <Grid>
             <TabControl>
                 <TabItem Header="Part 1" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part1ViewModel}">
                     <UniformGrid Columns="3">
-                        
-                            <UniformGrid Rows="4">
-                                    
-                                    <WrapPanel>
-                                        <Label Content="Number: "></Label>
-                                        <TextBox Width="200"  MaxLength="32" >
-                                            <TextBox.Text>
-                                                <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:BinaryValidationRule/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </WrapPanel>
-                                
-                                    <WrapPanel>
-                                        <TextBox MinWidth="50">
-                                            <TextBox.Text>
-                                                <Binding Path="BitPosition" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:BitPositionValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <Label Content="bit = "></Label>
-                                        <Label Content="{Binding BitValue}"></Label>
-                                        <Button Height="25" Margin="20,0" Content="Inverse" Command="{Binding InverseBitCommand}"></Button>
-                                    </WrapPanel>
-                                
-                                    <WrapPanel>
-                                        <TextBox MinWidth="30">
-                                            <TextBox.Text>
-                                                <Binding Path="BitI" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:BitPositionValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                            <Label Content="Change with " Margin="10,0"></Label>
-                                        <TextBox MinWidth="30">
-                                            <TextBox.Text>
-                                                <Binding Path="BitJ" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:BitPositionValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <Button Margin="10,0" Content="Change" Command="{Binding ChangeBitsCommand}"></Button>
-                                    </WrapPanel>
-                                
-                                    <WrapPanel>
-                                        <Label Content="Count bits to reset"></Label>
-                                        <TextBox MinWidth="20">
+
+                        <UniformGrid Rows="4">
+
+                            <WrapPanel>
+                                <Label Content="Number: "></Label>
+                                <TextBox Width="200"  MaxLength="32" >
+                                    <TextBox.Text>
+                                        <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BinaryValidationRule/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <TextBox MinWidth="50">
+                                    <TextBox.Text>
+                                        <Binding Path="BitPosition" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BitPositionValidation/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label Content="bit = "></Label>
+                                <Label Content="{Binding BitValue}"></Label>
+                                <Button Height="25" Margin="20,0" Content="Inverse" Command="{Binding InverseBitCommand}"></Button>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <TextBox MinWidth="30">
+                                    <TextBox.Text>
+                                        <Binding Path="BitI" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BitPositionValidation/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label Content="Change with " Margin="10,0"></Label>
+                                <TextBox MinWidth="30">
+                                    <TextBox.Text>
+                                        <Binding Path="BitJ" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BitPositionValidation  ValidationStep="RawProposedValue"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Button Margin="10,0" Content="Change" Command="{Binding ChangeBitsCommand}"></Button>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Count bits to reset"></Label>
+                                <TextBox MinWidth="20">
+                                    <TextBox.Text>
+                                        <Binding Path="BitsToReset" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BitPositionValidation/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Button Content="Reset" Margin="30,0" Command="{Binding ResetBitsCommand}"></Button>
+                            </WrapPanel>
+                        </UniformGrid>
+
+                        <UniformGrid Rows="4">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="Concatinate "></Label>
+                                    <TextBox MinWidth="30">
                                         <TextBox.Text>
-                                            <Binding Path="BitsToReset" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding Path="BitsToConcatinate" UpdateSourceTrigger="PropertyChanged">
                                                 <Binding.ValidationRules>
                                                     <validation:BitPositionValidation/>
                                                 </Binding.ValidationRules>
                                             </Binding>
                                         </TextBox.Text>
                                     </TextBox>
-                                    <Button Content="Reset" Margin="30,0" Command="{Binding ResetBitsCommand}"></Button>
-                                    </WrapPanel>
-                            </UniformGrid>
-                        
-                            <UniformGrid Rows="4">
-                                <StackPanel>
+                                    <Label Content="bits"></Label>
+                                    <Button Margin="10,0" Content="Concatinate" Command="{Binding ConcatinateBitsCommand}" ToolTip="Concatinate first n and last n bits"></Button>
+                                </WrapPanel>
                                 <WrapPanel>
-                                    <Label Content="Concatinate "></Label>
+                                    <Label Content="Сoncatinated bits"></Label>
+                                    <Label Content="{Binding ConcatinatedBits}"></Label>
+                                </WrapPanel>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="Get from the middle "></Label>
                                     <TextBox MinWidth="30">
+                                        <TextBox.Text>
+                                            <Binding Path="BitsToExtractFromMiddle" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:BitPositionValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="bits"></Label>
+                                    <Button Margin="10,0" Content="Get" Command="{Binding GetBitsFromMiddleCommand}" ToolTip="Concatinate first n and last n bits"></Button>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Result bits"></Label>
+                                    <Label Content="{Binding BitsFromMiddle}"></Label>
+                                </WrapPanel>
+                            </StackPanel>
+                        </UniformGrid>
+
+                        <UniformGrid Rows="3">
+                            <StackPanel>
+                            <WrapPanel>
+                                <TextBox MinWidth="30">
                                     <TextBox.Text>
-                                        <Binding Path="BitsToConcatinate" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding Path="ByteI" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <validation:BitPositionValidation/>
+                                                <validation:ByteSwapValidation/>
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
-                                    </TextBox>
-                                <Label Content="bits"></Label>
-                                    <Button Margin="10,0" Content="Concatinate" Command="{Binding ConcatinateBitsCommand}" ToolTip="Concatinate first n and last n bits"></Button>
-                                </WrapPanel>
-                                    <WrapPanel>
-                                        <Label Content="Сoncatinated bits"></Label>
-                                        <Label Content="{Binding ConcatinatedBits}"></Label>
-                                    </WrapPanel>
-                                </StackPanel>
-
-                                <StackPanel>
-                                    <WrapPanel>
-                                        <Label Content="Get from the middle "></Label>
-                                        <TextBox MinWidth="30">
-                                            <TextBox.Text>
-                                            <Binding Path="BitsToExtractFromMiddle" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:BitPositionValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <Label Content="bits"></Label>
-                                        <Button Margin="10,0" Content="Get" Command="{Binding GetBitsFromMiddleCommand}" ToolTip="Concatinate first n and last n bits"></Button>
-                                    </WrapPanel>
-                                    <WrapPanel>
-                                        <Label Content="Result bits"></Label>
-                                        <Label Content="{Binding BitsFromMiddle}"></Label>
-                                    </WrapPanel>
-                                </StackPanel>
-
+                                </TextBox>
+                                <Label Content="Change byte with " Margin="10,0"></Label>
+                                <TextBox MinWidth="30">
+                                    <TextBox.Text>
+                                        <Binding Path="ByteJ" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:ByteSwapValidation/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Button Margin="10,0" Content="Swap" Command="{Binding SwapBytesCommand}"></Button>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="Result bits"></Label>
+                                <Label Content="{Binding SwapedBits}"></Label>
+                            </WrapPanel>
+                            </StackPanel>
                         </UniformGrid>
 
                     </UniformGrid>

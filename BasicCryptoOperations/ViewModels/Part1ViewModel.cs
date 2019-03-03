@@ -28,6 +28,7 @@ namespace BasicCryptoOperations.ViewModels
             }
         }
         public String ConcatinatedBits { get; set; }
+        public String SwapedBits { get; set; }
         public String BitsFromMiddle { get; set; }
         public int BitPosition
         {
@@ -41,6 +42,10 @@ namespace BasicCryptoOperations.ViewModels
         }
         public int BitI { get; set; }
         public int BitJ { get; set; }
+
+        public int ByteI { get; set; }
+        public int ByteJ { get; set; }
+
         public int BitsToConcatinate { get; set; }
         public int BitsToExtractFromMiddle { get; set; }
         public char BitValue { get; set; } = ' ';
@@ -88,6 +93,13 @@ namespace BasicCryptoOperations.ViewModels
             get
             {
                 return new DelegateCommand(() => { BitsFromMiddle = _part1Model.GetBitsFromMiddle(Number, BitsToExtractFromMiddle); });
+            }
+        }
+        public ICommand SwapBytesCommand
+        {
+            get
+            {
+                return new DelegateCommand(() => { SwapedBits = _part1Model.SwapBytes(Number,ByteI,ByteJ); });
             }
         }
     }
