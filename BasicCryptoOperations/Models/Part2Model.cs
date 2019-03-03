@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevExpress.Mvvm;
 
 namespace BasicCryptoOperations.Models
 {
-    class Part2Model
+    class Part2Model:ViewModelBase
     {
     }
 }
