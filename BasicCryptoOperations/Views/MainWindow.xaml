@@ -4,9 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasicCryptoOperations"
+        xmlns:viewModels="clr-namespace:BasicCryptoOperations.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+
     <Grid>
-        
+        <Grid>
+            <TabControl>
+
+                <TabItem Header="Part 1" DataContext="{Binding }">
+
+                </TabItem>
+
+                <TabItem Header="Part 2">
+
+                </TabItem>
+
+                <TabItem Header="Part 3">
+
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+
     </Grid>
 </Window>
