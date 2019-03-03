@@ -25,11 +25,9 @@
             <TabControl>
                 <TabItem Header="Part 1" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part1ViewModel}">
                     <UniformGrid Columns="3">
-                        <Grid>
+                        
                             <UniformGrid Rows="4">
-
-                                <StackPanel>
-                                    <Label Content="1."></Label>
+                                    
                                     <WrapPanel>
                                         <Label Content="Number: "></Label>
                                         <TextBox Width="200"  MaxLength="32" >
@@ -42,7 +40,6 @@
                                             </TextBox.Text>
                                         </TextBox>
                                     </WrapPanel>
-                                </StackPanel>
                                 
                                     <WrapPanel>
                                         <TextBox MinWidth="50">
@@ -83,9 +80,10 @@
                                     </WrapPanel>
                                 
                                     <WrapPanel>
-                                    <TextBox MinWidth="30">
+                                        <Label Content="Count bits to reset"></Label>
+                                        <TextBox MinWidth="20">
                                         <TextBox.Text>
-                                            <Binding Path="BitsCountToReset" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding Path="BitsToReset" UpdateSourceTrigger="PropertyChanged">
                                                 <Binding.ValidationRules>
                                                     <validation:BitPositionValidation/>
                                                 </Binding.ValidationRules>
@@ -94,10 +92,53 @@
                                     </TextBox>
                                     <Button Content="Reset" Margin="30,0" Command="{Binding ResetBitsCommand}"></Button>
                                     </WrapPanel>
-
-
                             </UniformGrid>
-                        </Grid>
+                        
+                            <UniformGrid Rows="4">
+                                <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="Concatinate "></Label>
+                                    <TextBox MinWidth="30">
+                                    <TextBox.Text>
+                                        <Binding Path="BitsToConcatinate" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BitPositionValidation/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                    </TextBox>
+                                <Label Content="bits"></Label>
+                                    <Button Margin="10,0" Content="Concatinate" Command="{Binding ConcatinateBitsCommand}" ToolTip="Concatinate first n and last n bits"></Button>
+                                </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="Сoncatinated bits"></Label>
+                                        <Label Content="{Binding ConcatinatedBits}"></Label>
+                                    </WrapPanel>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <Label Content="Get from the middle "></Label>
+                                        <TextBox MinWidth="30">
+                                            <TextBox.Text>
+                                            <Binding Path="BitsToExtractFromMiddle" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validation:BitPositionValidation/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Label Content="bits"></Label>
+                                        <Button Margin="10,0" Content="Get" Command="{Binding GetBitsFromMiddleCommand}" ToolTip="Concatinate first n and last n bits"></Button>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="Result bits"></Label>
+                                        <Label Content="{Binding BitsFromMiddle}"></Label>
+                                    </WrapPanel>
+                                </StackPanel>
+
+                        </UniformGrid>
+
                     </UniformGrid>
                 </TabItem>
 

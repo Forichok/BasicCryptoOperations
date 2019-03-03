@@ -27,6 +27,8 @@ namespace BasicCryptoOperations.ViewModels
                 BitValue = _part1Model.GetBitValue(_number, _bitPosition);
             }
         }
+        public String ConcatinatedBits { get; set; }
+        public String BitsFromMiddle { get; set; }
         public int BitPosition
         {
             get => _bitPosition;
@@ -39,8 +41,10 @@ namespace BasicCryptoOperations.ViewModels
         }
         public int BitI { get; set; }
         public int BitJ { get; set; }
+        public int BitsToConcatinate { get; set; }
+        public int BitsToExtractFromMiddle { get; set; }
         public char BitValue { get; set; } = ' ';
-        public int BitsCountToReset { get; set; }
+        public int BitsToReset { get; set; }
 
 
         public Part1ViewModel()
@@ -68,7 +72,22 @@ namespace BasicCryptoOperations.ViewModels
         {
             get
             {
-                return new DelegateCommand(() => { Number = _part1Model.ResetBits(Number, BitsCountToReset); });
+                return new DelegateCommand(() => { Number = _part1Model.ResetBits(Number, BitsToReset); });
+            }
+        }
+
+        public ICommand ConcatinateBitsCommand
+        {
+            get
+            {
+                return new DelegateCommand(() => { ConcatinatedBits = _part1Model.ConcatinateBits(Number, BitsToConcatinate); });
+            }
+        }
+        public ICommand GetBitsFromMiddleCommand
+        {
+            get
+            {
+                return new DelegateCommand(() => { BitsFromMiddle = _part1Model.GetBitsFromMiddle(Number, BitsToExtractFromMiddle); });
             }
         }
     }

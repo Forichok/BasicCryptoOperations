@@ -68,6 +68,7 @@ namespace BasicCryptoOperations.Models
             
             
         }
+
         public String ResetBits(String number, int count)
         {
             StringBuilder sb = new StringBuilder(number);
@@ -85,8 +86,34 @@ namespace BasicCryptoOperations.Models
                 Console.WriteLine(e);
                 return sb.ToString();
             }
+        }
 
+        public String ConcatinateBits(String number, int count)
+        {
+            try
+            {
+                return number.Substring(0, count) + number.Substring(number.Length -count);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return number;
+            }
+            
+            
+        }
 
+        public String GetBitsFromMiddle(String number, int count)
+        {
+            try
+            {
+                return number.Substring(count, number.Length - count - 3);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return number;
+            }
         }
     }
 }
