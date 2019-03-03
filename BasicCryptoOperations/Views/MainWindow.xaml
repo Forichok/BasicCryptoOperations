@@ -1,10 +1,13 @@
-﻿<Window x:Class="BasicCryptoOperations.MainWindow"
+﻿
+    <Window x:Class="BasicCryptoOperations.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasicCryptoOperations"
         xmlns:viewModels="clr-namespace:BasicCryptoOperations.ViewModels"
+        xmlns:validation="clr-namespace:BasicCryptoOperations.Validation"
+        xmlns:behaviors="clr-namespace:BasicCryptoOperations.Behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -12,12 +15,90 @@
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
+
+        <Window.Resources>
+
+        </Window.Resources>
+
     <Grid>
         <Grid>
             <TabControl>
+                <TabItem Header="Part 1" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part1ViewModel}">
+                    <UniformGrid Columns="3">
+                        <Grid>
+                            <UniformGrid Rows="4">
 
-                <TabItem Header="Part 1" DataContext="{Binding }">
+                                <StackPanel>
+                                    <Label Content="1."></Label>
+                                    <WrapPanel>
+                                        <Label Content="Number: "></Label>
+                                        <TextBox Width="200"  MaxLength="32" >
+                                            <TextBox.Text>
+                                                <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validation:BinaryValidationRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </WrapPanel>
+                                </StackPanel>
+                                
+                                    <WrapPanel>
+                                        <TextBox MinWidth="50">
+                                            <TextBox.Text>
+                                                <Binding Path="BitPosition" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validation:BitPositionValidation/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Label Content="bit = "></Label>
+                                        <Label Content="{Binding BitValue}"></Label>
+                                        <Button Height="25" Margin="20,0" Content="Inverse" Command="{Binding InverseBitCommand}"></Button>
+                                    </WrapPanel>
+                                
+                                    <WrapPanel>
+                                        <TextBox MinWidth="30">
+                                            <TextBox.Text>
+                                                <Binding Path="BitI" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validation:BitPositionValidation/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                            <Label Content="Change with " Margin="10,0"></Label>
+                                        <TextBox MinWidth="30">
+                                            <TextBox.Text>
+                                                <Binding Path="BitJ" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validation:BitPositionValidation/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <Button Margin="10,0" Content="Change" Command="{Binding ChangeBitsCommand}"></Button>
+                                    </WrapPanel>
+                                
+                                    <WrapPanel>
+                                    <TextBox MinWidth="30">
+                                        <TextBox.Text>
+                                            <Binding Path="BitsCountToReset" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:BitPositionValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Button Content="Reset" Margin="30,0" Command="{Binding ResetBitsCommand}"></Button>
+                                    </WrapPanel>
 
+
+                            </UniformGrid>
+                        </Grid>
+                    </UniformGrid>
                 </TabItem>
 
                 <TabItem Header="Part 2">

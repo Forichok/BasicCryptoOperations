@@ -8,5 +8,6 @@ namespace BasicCryptoOperations.Models
 {
     class Part3Model
     {
+
     }
 }
