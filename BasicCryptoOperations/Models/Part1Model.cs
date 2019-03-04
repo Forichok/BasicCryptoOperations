@@ -9,8 +9,9 @@ namespace BasicCryptoOperations.Models
 {
     class Part1Model : ViewModelBase
     {
+        private String number;
 
-        public char GetBitValue(String number, int bitPosition)
+        public char GetBitValue(int bitPosition)
         {
             try
             {
@@ -23,7 +24,12 @@ namespace BasicCryptoOperations.Models
             }
         }
 
-        public String InverseBit(String number, int bitPosition)
+        public void SetNumber(String number)
+        {
+            this.number = number;
+        }
+
+        public String InverseBit(int bitPosition)
         {
             try
             {
@@ -50,7 +56,7 @@ namespace BasicCryptoOperations.Models
             }
         }
 
-        public String ChangeBits(String number, int i, int j)
+        public String ChangeBits(int i, int j)
         {
             try
             {
@@ -69,7 +75,7 @@ namespace BasicCryptoOperations.Models
             
         }
 
-        public String ResetBits(String number, int count)
+        public String ResetBits(int count)
         {
             StringBuilder sb = new StringBuilder(number);
             try
@@ -88,7 +94,7 @@ namespace BasicCryptoOperations.Models
             }
         }
 
-        public String ConcatinateBits(String number, int count)
+        public String ConcatinateBits(int count)
         {
             try
             {
@@ -103,7 +109,7 @@ namespace BasicCryptoOperations.Models
             
         }
 
-        public String GetBitsFromMiddle(String number, int count)
+        public String GetBitsFromMiddle(int count)
         {
             try
             {
@@ -116,7 +122,7 @@ namespace BasicCryptoOperations.Models
             }
         }
 
-        public String SwapBytes(String number, int i, int j)
+        public String SwapBytes(int i, int j)
         {
             try
             {
