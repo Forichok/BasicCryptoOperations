@@ -24,7 +24,9 @@ namespace BasicCryptoOperations.ViewModels
             set
             {
                 _number = value;
-                BitValue = _part1Model.GetBitValue(_number, _bitPosition);
+                _part1Model.SetNumber(_number);
+                BitValue = _part1Model.GetBitValue(_bitPosition);
+
             }
         }
         public String ConcatinatedBits { get; set; }
@@ -36,7 +38,7 @@ namespace BasicCryptoOperations.ViewModels
             set
             {
                 _bitPosition = value;
-                BitValue = _part1Model.GetBitValue(_number, _bitPosition);
+                BitValue = _part1Model.GetBitValue(_bitPosition);
 
             }
         }
@@ -61,7 +63,7 @@ namespace BasicCryptoOperations.ViewModels
         {
             get
             {
-                return new DelegateCommand(() => { Number = _part1Model.InverseBit(Number, BitPosition); });
+                return new DelegateCommand(() => { Number = _part1Model.InverseBit(BitPosition); });
             }
         }
 
@@ -69,7 +71,7 @@ namespace BasicCryptoOperations.ViewModels
         {
             get
             {
-                return new DelegateCommand(() => { Number = _part1Model.ChangeBits(Number, BitI, BitJ); });
+                return new DelegateCommand(() => { Number = _part1Model.ChangeBits(BitI, BitJ); });
             }
         }
 
@@ -77,7 +79,7 @@ namespace BasicCryptoOperations.ViewModels
         {
             get
             {
-                return new DelegateCommand(() => { Number = _part1Model.ResetBits(Number, BitsToReset); });
+                return new DelegateCommand(() => { Number = _part1Model.ResetBits(BitsToReset); });
             }
         }
 
@@ -85,21 +87,21 @@ namespace BasicCryptoOperations.ViewModels
         {
             get
             {
-                return new DelegateCommand(() => { ConcatinatedBits = _part1Model.ConcatinateBits(Number, BitsToConcatinate); });
+                return new DelegateCommand(() => { ConcatinatedBits = _part1Model.ConcatinateBits(BitsToConcatinate); });
             }
         }
         public ICommand GetBitsFromMiddleCommand
         {
             get
             {
-                return new DelegateCommand(() => { BitsFromMiddle = _part1Model.GetBitsFromMiddle(Number, BitsToExtractFromMiddle); });
+                return new DelegateCommand(() => { BitsFromMiddle = _part1Model.GetBitsFromMiddle(BitsToExtractFromMiddle); });
             }
         }
         public ICommand SwapBytesCommand
         {
             get
             {
-                return new DelegateCommand(() => { SwapedBits = _part1Model.SwapBytes(Number,ByteI,ByteJ); });
+                return new DelegateCommand(() => { SwapedBits = _part1Model.SwapBytes(ByteI,ByteJ); });
             }
         }
     }
