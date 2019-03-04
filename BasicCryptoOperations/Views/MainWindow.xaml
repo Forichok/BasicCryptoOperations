@@ -169,13 +169,67 @@
                         </UniformGrid>
 
                     </UniformGrid>
-                </TabItem>
-
-                <TabItem Header="Part 2">
 
                 </TabItem>
 
-                <TabItem Header="Part 3">
+                <TabItem Header="Part 2" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part2ViewModel}">
+                    <UniformGrid>
+                        <StackPanel>
+                        <WrapPanel>
+                            <Label Content="Max 2^p divider of "></Label>
+                            <TextBox MinWidth="50">
+                            <TextBox.Text>
+                                <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:NumberValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            </TextBox>
+
+                            <Label Content="p = "></Label>
+                            <TextBlock Text="{Binding MaxDivider}"></TextBlock>
+                        </WrapPanel>
+
+                            <WrapPanel>
+                                
+                            </WrapPanel>
+                        <TextBlock Text="{Binding Limits}"></TextBlock>
+
+
+                            <WrapPanel>
+                                <Label Content="Binary num: "></Label>
+                                <TextBox MinWidth="50" Text="{Binding BinaryNum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content=" Self Xored = "></Label>
+                                <TextBlock Text="{Binding SelfXored}"></TextBlock>
+                            </WrapPanel>
+                            <WrapPanel>
+                            <Slider Name="Slider" Maximum="20" Minimum="0" MinWidth="200" Value="{Binding ShiftIndex}"/>
+                                <TextBox Margin="20,0" Text="{Binding ElementName=Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="Left: "></Label>
+                                <TextBox Text="{Binding LeftShift}"></TextBox>
+                                <Label Content="   Right: "></Label>
+                                <TextBox Text="{Binding RightShift}"></TextBox>
+                            </WrapPanel>
+                            
+                            <WrapPanel>
+                                <Label Content="Swap rules: "></Label>
+                                <TextBox MinWidth="50" Text="{Binding SwapRules, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="Swapped: "></Label>
+                                <TextBlock Text="{Binding SwappedNumber}"></TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+
+                    </UniformGrid>
+                </TabItem>
+
+                <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part2ViewModel}">
 
                 </TabItem>
 
