@@ -86,7 +86,9 @@
     </Compile>
     <Compile Include="Behaviors\BinaryOnlyBehavior.cs" />
     <Compile Include="Crypto\MyCrypto.cs" />
+    <Compile Include="Crypto\RC4.cs" />
     <Compile Include="Extensions\BitArrayExtension.cs" />
+    <Compile Include="Extensions\ArrayExtension.cs" />
     <Compile Include="Models\Part1Model.cs" />
     <Compile Include="Models\Part2Model.cs" />
     <Compile Include="Models\Part3Model.cs" />

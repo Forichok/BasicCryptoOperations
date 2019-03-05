@@ -15,6 +15,13 @@ namespace BasicCryptoOperations.ViewModels
     {
         private Part3Model _part3Model;
 
+        public String RC4Key { get; set; }
+        public String VermanKey { get; set; }
+
+        public bool IsReady { get; set; } = true;
+        
+        
+
         public Part3ViewModel()
         {
             _part3Model=new Part3Model();
@@ -26,13 +33,14 @@ namespace BasicCryptoOperations.ViewModels
             {
                     return new DelegateCommand(() =>
                     {
-                        OpenFileDialog theDialog = new OpenFileDialog();
-                        theDialog.Title = "Open Text File";
-                        theDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                        if (theDialog.ShowDialog() == true)
+                        Task.Factory.StartNew(() =>
                         {
-                            _part3Model.Encrypt(theDialog.FileName);
-                        }
+                            App.Current.Dispatcher.Invoke(() => IsReady = false);
+                            String fileName = GetFileName();
+                            if (fileName != "")
+                                _part3Model.Encrypt(fileName);
+                            App.Current.Dispatcher.Invoke(() => IsReady = true);
+                        });
                     });
                 
             }
@@ -44,14 +52,66 @@ namespace BasicCryptoOperations.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    OpenFileDialog theDialog = new OpenFileDialog();
-                    theDialog.Title = "Open Text File";
-                    theDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    if (theDialog.ShowDialog() == true)
+                    Task.Factory.StartNew(() =>
                     {
-                        _part3Model.Decrypt(theDialog.FileName);
-                    }
+                        App.Current.Dispatcher.Invoke(() => IsReady = false);
+                        String fileName = GetFileName();
+                        if (fileName != "")
+                            _part3Model.Decrypt(fileName);
+                        App.Current.Dispatcher.Invoke(() => IsReady = true);
+                    });
                 });
+            }
+        }
+
+        public ICommand StartRC4Command
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        App.Current.Dispatcher.Invoke(() => IsReady = false);
+                        String fileName = GetFileName();
+                        if (fileName != "")
+                            _part3Model.StartRC4(fileName,RC4Key);
+                        App.Current.Dispatcher.Invoke(() => IsReady = true);
+                    });
+                });
+            }
+        }
+
+        public ICommand StartVermanCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        App.Current.Dispatcher.Invoke(() => IsReady = false);
+                        String fileName = GetFileName();
+                        if (fileName != "")
+                            _part3Model.StartVernam(fileName,VermanKey);
+                        App.Current.Dispatcher.Invoke(() => IsReady = true);
+                    });
+                });
+            }
+        }
+
+        private static String GetFileName()
+        {
+            OpenFileDialog theDialog = new OpenFileDialog();
+            theDialog.Title = "Open Text File";
+            theDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (theDialog.ShowDialog() == true)
+            {
+                return theDialog.FileName;
+            }
+            else
+            {
+                return "";
             }
         }
     }

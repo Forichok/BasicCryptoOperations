@@ -134,32 +134,32 @@
 
                         <UniformGrid Rows="3">
                             <StackPanel>
-                            <WrapPanel>
-                                <TextBox MinWidth="30">
-                                    <TextBox.Text>
-                                        <Binding Path="ByteI" UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validation:ByteSwapValidation/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <Label Content="Change byte with " Margin="10,0"></Label>
-                                <TextBox MinWidth="30">
-                                    <TextBox.Text>
-                                        <Binding Path="ByteJ" UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validation:ByteSwapValidation/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                                <Button Margin="10,0" Content="Swap" Command="{Binding SwapBytesCommand}"></Button>
-                            </WrapPanel>
-                            <WrapPanel>
-                                <Label Content="Result bits"></Label>
-                                <Label Content="{Binding SwapedBits}"></Label>
-                            </WrapPanel>
+                                <WrapPanel>
+                                    <TextBox MinWidth="30">
+                                        <TextBox.Text>
+                                            <Binding Path="ByteI" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:ByteSwapValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Change byte with " Margin="10,0"></Label>
+                                    <TextBox MinWidth="30">
+                                        <TextBox.Text>
+                                            <Binding Path="ByteJ" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:ByteSwapValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Button Margin="10,0" Content="Swap" Command="{Binding SwapBytesCommand}"></Button>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Result bits"></Label>
+                                    <Label Content="{Binding SwapedBits}"></Label>
+                                </WrapPanel>
                             </StackPanel>
                         </UniformGrid>
 
@@ -170,26 +170,26 @@
                 <TabItem Header="Part 2" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part2ViewModel}">
                     <UniformGrid>
                         <StackPanel>
-                        <WrapPanel>
-                            <Label Content="Max 2^p divider of "></Label>
-                            <TextBox MinWidth="50">
-                            <TextBox.Text>
-                                <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validation:NumberValidation/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                            </TextBox>
+                            <WrapPanel>
+                                <Label Content="Max 2^p divider of "></Label>
+                                <TextBox MinWidth="50">
+                                    <TextBox.Text>
+                                        <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:NumberValidation/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
 
-                            <Label Content="p = "></Label>
-                            <TextBlock Text="{Binding MaxDivider}"></TextBlock>
-                        </WrapPanel>
+                                <Label Content="p = "></Label>
+                                <TextBlock Text="{Binding MaxDivider}"></TextBlock>
+                            </WrapPanel>
 
                             <WrapPanel>
-                                
+
                             </WrapPanel>
-                        <TextBlock Text="{Binding Limits}"></TextBlock>
+                            <TextBlock Text="{Binding Limits}"></TextBlock>
 
 
                             <WrapPanel>
@@ -201,7 +201,7 @@
                                 <TextBlock Text="{Binding SelfXored}"></TextBlock>
                             </WrapPanel>
                             <WrapPanel>
-                            <Slider Name="Slider" Maximum="20" Minimum="0" MinWidth="200" Value="{Binding ShiftIndex}"/>
+                                <Slider Name="Slider" Maximum="20" Minimum="0" MinWidth="200" Value="{Binding ShiftIndex}"/>
                                 <TextBox Margin="20,0" Text="{Binding ElementName=Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
@@ -210,7 +210,7 @@
                                 <Label Content="   Right: "></Label>
                                 <TextBox Text="{Binding RightShift}"></TextBox>
                             </WrapPanel>
-                            
+
                             <WrapPanel>
                                 <Label Content="Swap rules: "></Label>
                                 <TextBox MinWidth="50" Text="{Binding SwapRules, UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -225,14 +225,40 @@
                 </TabItem>
 
                 <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part3ViewModel}">
-                        <UniformGrid Columns="4">
+                    <UniformGrid Columns="4">
 
-                            <StackPanel>
-                                <Label Content="9" HorizontalAlignment="Center"></Label>
-                                <Button Content="Decrypt" Command="{Binding DecryptCommand}"></Button>
-                                <Button Content="Encrypt" Command="{Binding EncryptCommand}"></Button>
+                        <StackPanel>
+                            <Label Content="9" HorizontalAlignment="Center"></Label>
+                            <Button IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
+                            <Button IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
                         </StackPanel>
-                        </UniformGrid>
+
+                        <StackPanel>
+                            <Label Content="10" HorizontalAlignment="Center"></Label>
+                            <WrapPanel>
+                                <Label Content="Key"></Label>
+                                <TextBox Text="{Binding VermanKey}" MinWidth="100"></TextBox>
+                            </WrapPanel>
+                            <Button IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
+
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="9" HorizontalAlignment="Center"></Label>
+                            <Button IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptCommand}"></Button>
+                            <Button IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptCommand}"></Button>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="12" HorizontalAlignment="Center"></Label>
+                            <WrapPanel>
+                                <Label Content="Key"></Label>
+                                <TextBox MinWidth="100" Text="{Binding RC4Key}"></TextBox>
+                            </WrapPanel>
+                            <Button IsEnabled="{Binding IsReady}" Content="Start RC$" Command="{Binding StartRC4Command}"></Button>
+
+                        </StackPanel>
+                    </UniformGrid>
                 </TabItem>
 
             </TabControl>
