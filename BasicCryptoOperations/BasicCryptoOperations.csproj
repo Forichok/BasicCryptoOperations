@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,8 +86,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Behaviors\BinaryOnlyBehavior.cs" />
+    <Compile Include="Crypto\DES\CypherOperationResults.cs" />
+    <Compile Include="Crypto\DES\DES.cs" />
+    <Compile Include="Crypto\DES\DESExec.cs" />
     <Compile Include="Crypto\MyCrypto.cs" />
     <Compile Include="Crypto\RC4.cs" />
+    <Compile Include="Extensions\BigIntegerExtension.cs" />
     <Compile Include="Extensions\BitArrayExtension.cs" />
     <Compile Include="Extensions\ArrayExtension.cs" />
     <Compile Include="Models\Part1Model.cs" />

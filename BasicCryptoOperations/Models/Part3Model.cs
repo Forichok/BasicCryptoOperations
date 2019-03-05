@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BasicCryptoOperations.Crypto;
+using BasicCryptoOperations.Crypto.DES;
 using BasicCryptoOperations.Extensions;
 
 namespace BasicCryptoOperations.Models
@@ -52,6 +53,18 @@ namespace BasicCryptoOperations.Models
 
             File.Delete(path);
             File.Move(path + "tmp", path);
+        }
+
+        public void EncodeDES(String path, String key)
+        {
+            var des = new DESExec();
+            des.Encrypt(path, Encoding.Default.GetBytes(key));
+        }
+
+        public void DecodeDES(String path, String key)
+        {
+            var des = new DESExec();
+            des.Decrypt(path, Encoding.Default.GetBytes(key));
         }
 
         public void StartVernam(String filePatch, String VernamKey)

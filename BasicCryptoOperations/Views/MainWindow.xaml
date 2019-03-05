@@ -229,8 +229,8 @@
 
                         <StackPanel>
                             <Label Content="9" HorizontalAlignment="Center"></Label>
-                            <Button IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
-                            <Button IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
+                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
+                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
                         </StackPanel>
 
                         <StackPanel>
@@ -239,14 +239,24 @@
                                 <Label Content="Key"></Label>
                                 <TextBox Text="{Binding VermanKey}" MinWidth="100"></TextBox>
                             </WrapPanel>
-                            <Button IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
+                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
 
                         </StackPanel>
 
                         <StackPanel>
                             <Label Content="9" HorizontalAlignment="Center"></Label>
-                            <Button IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptCommand}"></Button>
-                            <Button IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptCommand}"></Button>
+                            <WrapPanel>
+                                <Label Content="Key"></Label>
+                                <TextBox Text="{Binding DESKey}" MinWidth="100"></TextBox>
+                            </WrapPanel>
+                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
+                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
+
+                            <RadioButton Content="ECB" IsChecked="{Binding ECB}"></RadioButton>
+                            <RadioButton Content="CFB" IsChecked="{Binding CFB}"></RadioButton>
+                            <RadioButton Content="OFB" IsChecked="{Binding OFB}"></RadioButton>
+                            <RadioButton Content="CBC" IsChecked="{Binding CBC}"></RadioButton>
+
                         </StackPanel>
 
                         <StackPanel>
@@ -255,7 +265,7 @@
                                 <Label Content="Key"></Label>
                                 <TextBox MinWidth="100" Text="{Binding RC4Key}"></TextBox>
                             </WrapPanel>
-                            <Button IsEnabled="{Binding IsReady}" Content="Start RC$" Command="{Binding StartRC4Command}"></Button>
+                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start RC$" Command="{Binding StartRC4Command}"></Button>
 
                         </StackPanel>
                     </UniformGrid>
