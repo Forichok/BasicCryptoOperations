@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -84,6 +85,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Behaviors\BinaryOnlyBehavior.cs" />
+    <Compile Include="Crypto\MyCrypto.cs" />
+    <Compile Include="Extensions\BitArrayExtension.cs" />
     <Compile Include="Models\Part1Model.cs" />
     <Compile Include="Models\Part2Model.cs" />
     <Compile Include="Models\Part3Model.cs" />

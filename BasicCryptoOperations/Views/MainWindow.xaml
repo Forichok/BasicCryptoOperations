@@ -224,8 +224,15 @@
                     </UniformGrid>
                 </TabItem>
 
-                <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part2ViewModel}">
+                <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part3ViewModel}">
+                        <UniformGrid Columns="4">
 
+                            <StackPanel>
+                                <Label Content="9" HorizontalAlignment="Center"></Label>
+                                <Button Content="Decrypt" Command="{Binding DecryptCommand}"></Button>
+                                <Button Content="Encrypt" Command="{Binding EncryptCommand}"></Button>
+                        </StackPanel>
+                        </UniformGrid>
                 </TabItem>
 
             </TabControl>

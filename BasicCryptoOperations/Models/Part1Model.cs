@@ -126,11 +126,11 @@ namespace BasicCryptoOperations.Models
         {
             try
             {
-                while (number.Length < i * 4 || number.Length < j * 4)
+                while (number.Length < i * 8 || number.Length < j * 8)
                 {
                    number = number.Insert(0, "0");
                 }
-                return String.Join("", Swap<String>(new List<string>(Split(number, 4)), i-1, j-1));
+                return String.Join("", Swap<String>(new List<string>(Split(number, 8)), i-1, j-1));
             }
             catch (Exception e)
             {
