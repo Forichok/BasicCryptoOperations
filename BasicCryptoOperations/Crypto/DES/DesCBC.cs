@@ -9,7 +9,7 @@ namespace BasicCryptoOperations.Crypto.DES
 {
     public class DesCBC : Des
     {
-        private readonly string _iv;
+        private string _iv;
 
         private string _lastEncrypted = "";
 
@@ -52,16 +52,6 @@ namespace BasicCryptoOperations.Crypto.DES
             }
         }
 
-        private void CbcEncryptRound(string hex)
-        {
-            if (string.IsNullOrEmpty(CipherText))
-            {
-                _cipherText = _iv;
-            }
-
-            var input = Convert.ToInt64(hex, 16) ^ Convert.ToInt64(_cipherText, 16);
-            EncryptRound($"{input:X16}");
-        }
 
         public void DecodeFile(string fromFile, string toFile)
         {
@@ -103,12 +93,26 @@ namespace BasicCryptoOperations.Crypto.DES
             {
                 _lastEncrypted = _iv;
             }
+
             Decrypt(hex);
 
             var output = Convert.ToInt64(_lastEncrypted, 16) ^ Convert.ToInt64(DecryptText, 16);
-
+            _lastEncrypted = hex;
             _decryptedText = $"{output:X16}";
 
+        }
+
+        private void CbcEncryptRound(string hex)
+        {
+            // if (string.IsNullOrEmpty(CipherText)) 
+            // { 
+            // _cipherText = _iv; 
+            // } 
+
+            var input = Convert.ToInt64(hex, 16) ^ Convert.ToInt64(_iv, 16);
+            EncryptRound($"{input:X16}");
+
+            _iv = CipherText;
         }
     }
 }
