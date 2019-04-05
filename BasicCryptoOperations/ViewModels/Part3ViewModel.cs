@@ -15,11 +15,11 @@ namespace BasicCryptoOperations.ViewModels
     {
         private Part3Model _part3Model;
 
-        public String RC4Key { get; set; }
-        public String VermanKey { get; set; }
+        public String RC4Key { get; set; } = "RC4";
+        public String VermanKey { get; set; } = "Verman";
         public String DESKey { get; set; } = "A1B2C3D4E5F6A7B8";
 
-        public string Mode { get; set; } = "CBC";
+        public string Mode { get; set; } = "ECB";
         
         public bool IsReady { get; set; } = true;
 
@@ -82,7 +82,7 @@ namespace BasicCryptoOperations.ViewModels
                             String fileName = GetFileName();
 
                             if (fileName != "")
-                                _part3Model.EncodeDES(fileName, DESKey, Mode);
+                                _part3Model.EncodeDes(fileName, DESKey, Mode);
                             App.Current.Dispatcher.Invoke(() => IsReady = true);
                         });
                     }

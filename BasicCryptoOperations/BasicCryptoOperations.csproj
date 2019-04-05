@@ -106,6 +106,8 @@
     <Compile Include="Validation\BinaryValidationRule.cs" />
     <Compile Include="Validation\BitPositionValidation.cs" />
     <Compile Include="Validation\ByteSwapValidation.cs" />
+    <Compile Include="Validation\DesKeyValidation.cs" />
+    <Compile Include="Validation\NotEmptyStringValidation.cs" />
     <Compile Include="Validation\NumberValidation.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Part1ViewModel.cs" />

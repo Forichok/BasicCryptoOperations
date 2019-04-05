@@ -14,10 +14,9 @@ namespace BasicCryptoOperations.Models
     class Part3Model
     {
         private int RC4BlockSize = 1024;
-
         
 
-        public string DESIV { get; set; } = "A1B2C3D4E5F6A7B8";
+        public string DESIV { get; set; } = "A1B2C3D4E5F6A7B0";
         public void Encrypt(String path)
         {
             MyCrypto.Encrypt(path);
@@ -59,7 +58,7 @@ namespace BasicCryptoOperations.Models
             File.Move(path + "tmp", path);
         }
 
-        public void EncodeDES(string path, string key, string mode)
+        public void EncodeDes(string path, string key, string mode)
         {
             switch (mode)
             {
@@ -134,7 +133,7 @@ namespace BasicCryptoOperations.Models
             File.Move(path + "tmp", path);
         }
 
-        public void StartVernam(String filePatch, String VernamKey)
+        public void StartVernam(String filePatch, String vernamKey)
         {
             try
             {
@@ -142,7 +141,7 @@ namespace BasicCryptoOperations.Models
                 {
                     using (var writer = new BinaryWriter(File.Open(filePatch + "tmp", FileMode.OpenOrCreate)))
                     {
-                        var key = Encoding.Default.GetBytes(VernamKey);
+                        var key = Encoding.Default.GetBytes(vernamKey);
                         var blockSize = key.Length;
                         while (true)
                         {

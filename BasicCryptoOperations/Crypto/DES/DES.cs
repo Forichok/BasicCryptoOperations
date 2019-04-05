@@ -22,10 +22,7 @@ namespace BasicCryptoOperations.Crypto.DES
 
         public string CipherText => _cipherText;
         public string DecryptText => _decryptedText;
-        public string TraceInit => _traceInit;
-        public string TraceFinal => _traceFinal;
-        public string CipherKey => _cipherKey;
-        public string[][] TraceRound => _traceRound;
+
 
         public Des(string key)
         {

@@ -40,7 +40,7 @@ namespace BasicCryptoOperations.Models
             if (isNum)
                 res = ((num << realOffset) & (maxNum)) | (num >> (bitCount - realOffset));
 
-            return Convert.ToString(res, 2);
+            return Convert.ToString(res, 2).PadLeft(binaryNumber.Length,'0');
         }
 
 
@@ -59,7 +59,7 @@ namespace BasicCryptoOperations.Models
             if (isNum)
                 res = (num >> realOffset) | ((num << (bitCount - realOffset)) & (maxNum));
 
-            return Convert.ToString(res, 2);
+            return Convert.ToString(res, 2).PadRight(binaryNumber.Length, '0');
         }
 
         public String Limits()

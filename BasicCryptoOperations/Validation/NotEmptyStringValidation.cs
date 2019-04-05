@@ -8,22 +8,16 @@ using System.Windows.Controls;
 
 namespace BasicCryptoOperations.Validation
 {
-    class ByteSwapValidation : ValidationRule
+    class NotEmptyStringValidation:ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            int i;
-            if (!Int32.TryParse(value.ToString(), out i))
+            var key = value as String;
+            if (string.IsNullOrEmpty(key))
             {
-                return new ValidationResult(false, "Please enter a valid bit position (1-4)");
+                return new ValidationResult(false, $"Input key");
             }
-
-            if (i < 1 || i > 4)
-                return new ValidationResult(false, "Please enter a valid bit position (1-4)");
-
             return new ValidationResult(true, null);
         }
-
-
     }
 }

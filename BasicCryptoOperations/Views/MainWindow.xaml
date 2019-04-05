@@ -14,8 +14,6 @@
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
-
-
     <Grid>
         <Grid>
             <TabControl>
@@ -195,7 +193,7 @@
 
 
                             <WrapPanel>
-                                <Label Content="Binary num: "></Label>
+                                <Label Name ="BinNum" Content="Binary num: "></Label>
                                 <TextBox MinWidth="50" Text="{Binding BinaryNum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
@@ -208,9 +206,9 @@
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="Left: "></Label>
-                                <TextBox Text="{Binding LeftShift}"></TextBox>
+                                <TextBox Width="{Binding ElementName=BinNum,Path=Width}" Text="{Binding LeftShift}"></TextBox>
                                 <Label Content="   Right: "></Label>
-                                <TextBox Text="{Binding RightShift}"></TextBox>
+                                <TextBox Width="{Binding ElementName=BinNum,Path=Width}"  Text="{Binding RightShift}"></TextBox>
                             </WrapPanel>
 
                             <WrapPanel>
@@ -227,8 +225,9 @@
                 </TabItem>
 
                 <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part3ViewModel}">
-                    <StackPanel>
-                        <UniformGrid Columns="4">
+                    <Grid>
+
+                        <UniformGrid Columns="4" VerticalAlignment="Stretch">
 
                             <StackPanel>
                                 <Label Content="9" HorizontalAlignment="Center"></Label>
@@ -240,17 +239,33 @@
                                 <Label Content="10" HorizontalAlignment="Center"></Label>
                                 <WrapPanel>
                                     <Label Content="Key"></Label>
-                                    <TextBox Text="{Binding VermanKey}" MinWidth="100"></TextBox>
+                                    <TextBox MinWidth="100">
+                                        <TextBox.Text>
+                                            <Binding Path="VermanKey" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyStringValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
                                 </WrapPanel>
                                 <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
 
                             </StackPanel>
 
-                            <StackPanel>
+                            <StackPanel >
                                 <Label Content="11" HorizontalAlignment="Center"></Label>
                                 <WrapPanel>
                                     <Label Content="Key"></Label>
-                                    <TextBox Text="{Binding DESKey}" MinWidth="100"></TextBox>
+                                    <TextBox MinWidth="100">
+                                        <TextBox.Text>
+                                            <Binding Path="DESKey" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:DesKeyValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
                                 </WrapPanel>
                                 <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
                                 <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
@@ -266,14 +281,22 @@
                                 <Label Content="12" HorizontalAlignment="Center"></Label>
                                 <WrapPanel>
                                     <Label Content="Key"></Label>
-                                    <TextBox MinWidth="100" Text="{Binding RC4Key}"></TextBox>
+                                    <TextBox MinWidth="100">
+                                        <TextBox.Text>
+                                            <Binding Path="RC4Key" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyStringValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
                                 </WrapPanel>
                                 <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start RC4" Command="{Binding StartRC4Command}"></Button>
 
                             </StackPanel>
                         </UniformGrid>
-                        <ProgressBar Height="20" IsIndeterminate="{Binding IsWorking}"></ProgressBar>
-                    </StackPanel>
+                        <ProgressBar VerticalAlignment="Bottom" Height="20" IsIndeterminate="{Binding IsWorking}"></ProgressBar>
+                    </Grid>
                 </TabItem>
 
             </TabControl>
