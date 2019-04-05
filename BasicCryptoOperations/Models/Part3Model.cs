@@ -155,14 +155,15 @@ namespace BasicCryptoOperations.Models
                         }
                     }
                 }
+            File.Delete(filePatch);
+            File.Move(filePatch + "tmp", filePatch);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
-            File.Delete(filePatch);
-            File.Move(filePatch + "tmp", filePatch);
+
         }
 
         private static byte[] GetCipher(byte[] key, byte[] data)
