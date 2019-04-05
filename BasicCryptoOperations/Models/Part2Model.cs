@@ -26,6 +26,8 @@ namespace BasicCryptoOperations.Models
 
         public String LeftShift(int offsetindex)
         {
+            if (string.IsNullOrEmpty(number))
+                return "";
 
             var isNum = int.TryParse(number, out var num);
 
@@ -46,6 +48,9 @@ namespace BasicCryptoOperations.Models
 
         public String RightShift(int offsetIndex)
         {
+            if (string.IsNullOrEmpty(number))
+                return "";
+
             var isNum = int.TryParse(number, out var num);
 
             var nearestDegree = (int) Math.Log(num, 2);
@@ -71,7 +76,7 @@ namespace BasicCryptoOperations.Models
 
             var nearestDegree = (int) Math.Log(res, 2);
 
-            return $"2^{nearestDegree} <= x <= 2^{nearestDegree + 1}";
+            return $"2^{nearestDegree} <= x < 2^{nearestDegree + 1}";
         }
 
         public bool XorItself()
@@ -144,8 +149,6 @@ namespace BasicCryptoOperations.Models
 
         public String Swap(String swapRules)
         {
-            var sb = new StringBuilder();
-
             try
             {
                 var permutArr = Array.ConvertAll(swapRules.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), int.Parse);
@@ -153,20 +156,19 @@ namespace BasicCryptoOperations.Models
 
                 if (permutArr.Length == binaryNumber.Length)
                 {
-                    sb.Append(Swap(binaryNumber, permutArr));
+                    return Swap(binaryNumber, permutArr);
                 }
                 else
                 {
-                    sb.Append("#Error: In permute. input");
+                    return "Incorrect command";
                 }
 
             }
             catch (Exception)
             {
-                sb.Append("#Error: Empty input");
+                return "Error";
             }
-
-            return sb.ToString();
+            
         }
 
         private static String Swap(String binaryNumber, int[] permutArr)

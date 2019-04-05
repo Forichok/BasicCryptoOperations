@@ -32,9 +32,7 @@ namespace BasicCryptoOperations.ViewModels
                     BinaryNum = Convert.ToString(Convert.ToInt32(_number), 2);
                     _part2Model.SetNumber(_number);
                     _part2Model.SetBinaryNumber(_binaryNum);
-                    MaxDivider = _part2Model.GetMaxDivider();
-                    Limits = _part2Model.Limits();
-                    SelfXored = _part2Model.XorItself();
+                    InitFields();
                 }
                 catch (Exception e)
                 {
@@ -76,12 +74,10 @@ namespace BasicCryptoOperations.ViewModels
                 try
                 {
                     _binaryNum = value;
-                    _part2Model.SetBinaryNumber(_binaryNum);
                     Number = Convert.ToInt32(_binaryNum, 2).ToString();
+                    _part2Model.SetBinaryNumber(_binaryNum);
                     _part2Model.SetNumber(_number);
-                    MaxDivider = _part2Model.GetMaxDivider();
-                    Limits = _part2Model.Limits();
-                    SelfXored = _part2Model.XorItself();
+                    InitFields();
                 }
                 catch (Exception e)
                 {
@@ -89,6 +85,15 @@ namespace BasicCryptoOperations.ViewModels
                 }
 
             }
+        }
+
+        private void InitFields()
+        {
+            MaxDivider = _part2Model.GetMaxDivider();
+            Limits = _part2Model.Limits();
+            SelfXored = _part2Model.XorItself();
+            LeftShift = _part2Model.LeftShift(_shiftIndex);
+            RightShift = _part2Model.RightShift(_shiftIndex);
         }
 
         public String LeftShift { get; set; }

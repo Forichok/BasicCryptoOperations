@@ -111,15 +111,19 @@ namespace BasicCryptoOperations.Models
 
         public String GetBitsFromMiddle(int count)
         {
-            try
+            var sb = new StringBuilder(number);
+
+            if (sb.Length - count*2> 0)
             {
-                return number.Substring(count, number.Length - count - 3);
+                var resultSb = new StringBuilder();
+
+                for (var i = count; i < sb.Length - count; i++)
+                    resultSb.Append(sb[i]);
+
+                return resultSb.ToString();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return number;
-            }
+
+            return "";
         }
 
         public String SwapBytes(int i, int j)
