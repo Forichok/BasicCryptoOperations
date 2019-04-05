@@ -17,12 +17,14 @@ namespace BasicCryptoOperations.ViewModels
 
         public String RC4Key { get; set; }
         public String VermanKey { get; set; }
-        public String DESKey { get; set; }
+        public String DESKey { get; set; } = "A1B2C3D4E5F6A7B8";
 
-
+        public string Mode { get; set; } = "CBC";
+        
         public bool IsReady { get; set; } = true;
-        
-        
+
+        public bool IsWorking => !IsReady;
+
 
         public Part3ViewModel()
         {
@@ -44,7 +46,6 @@ namespace BasicCryptoOperations.ViewModels
                             App.Current.Dispatcher.Invoke(() => IsReady = true);
                         });
                     });
-                
             }
         }
 
@@ -73,14 +74,18 @@ namespace BasicCryptoOperations.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    Task.Factory.StartNew(() =>
+                    if (DESKey.Length == 16)
                     {
-                        App.Current.Dispatcher.Invoke(() => IsReady = false);
-                        String fileName = GetFileName();
-                        if (fileName != "")
-                            _part3Model.EncodeDES(fileName,DESKey);
-                        App.Current.Dispatcher.Invoke(() => IsReady = true);
-                    });
+                        Task.Factory.StartNew(() =>
+                        {
+                            App.Current.Dispatcher.Invoke(() => IsReady = false);
+                            String fileName = GetFileName();
+
+                            if (fileName != "")
+                                _part3Model.EncodeDES(fileName, DESKey, Mode);
+                            App.Current.Dispatcher.Invoke(() => IsReady = true);
+                        });
+                    }
                 });
 
             }
@@ -92,15 +97,30 @@ namespace BasicCryptoOperations.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    Task.Factory.StartNew(() =>
+                    if (DESKey.Length == 16)
                     {
-                        App.Current.Dispatcher.Invoke(() => IsReady = false);
-                        String fileName = GetFileName();
-                        if (fileName != "")
-                            _part3Model.DecodeDES(fileName, DESKey);
-                        App.Current.Dispatcher.Invoke(() => IsReady = true);
-                    });
+                        Task.Factory.StartNew(() =>
+                        {
+                            App.Current.Dispatcher.Invoke(() => IsReady = false);
+                            String fileName = GetFileName();
+                            if (fileName != "")
+                                _part3Model.DecodeDES(fileName, DESKey, Mode);
+                            App.Current.Dispatcher.Invoke(() => IsReady = true);
+                        });
+                    }
                 });
+            }
+        }
+
+        public ICommand SwitchDesModeCommand
+        {
+            get
+            {
+                return new DelegateCommand<String>((mode) =>
+                {
+                    Mode = mode;
+                });
+
             }
         }
 
@@ -154,5 +174,6 @@ namespace BasicCryptoOperations.ViewModels
                 return "";
             }
         }
+
     }
 }

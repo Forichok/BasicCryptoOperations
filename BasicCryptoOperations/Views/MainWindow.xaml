@@ -14,6 +14,8 @@
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
+
+
     <Grid>
         <Grid>
             <TabControl>
@@ -225,50 +227,53 @@
                 </TabItem>
 
                 <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part3ViewModel}">
-                    <UniformGrid Columns="4">
+                    <StackPanel>
+                        <UniformGrid Columns="4">
 
-                        <StackPanel>
-                            <Label Content="9" HorizontalAlignment="Center"></Label>
-                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
-                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
-                        </StackPanel>
+                            <StackPanel>
+                                <Label Content="9" HorizontalAlignment="Center"></Label>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
+                            </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="10" HorizontalAlignment="Center"></Label>
-                            <WrapPanel>
-                                <Label Content="Key"></Label>
-                                <TextBox Text="{Binding VermanKey}" MinWidth="100"></TextBox>
-                            </WrapPanel>
-                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
+                            <StackPanel>
+                                <Label Content="10" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <Label Content="Key"></Label>
+                                    <TextBox Text="{Binding VermanKey}" MinWidth="100"></TextBox>
+                                </WrapPanel>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
 
-                        </StackPanel>
+                            </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="9" HorizontalAlignment="Center"></Label>
-                            <WrapPanel>
-                                <Label Content="Key"></Label>
-                                <TextBox Text="{Binding DESKey}" MinWidth="100"></TextBox>
-                            </WrapPanel>
-                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
-                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
+                            <StackPanel>
+                                <Label Content="11" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <Label Content="Key"></Label>
+                                    <TextBox Text="{Binding DESKey}" MinWidth="100"></TextBox>
+                                </WrapPanel>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
 
-                            <RadioButton Content="ECB" IsChecked="{Binding ECB}"></RadioButton>
-                            <RadioButton Content="CFB" IsChecked="{Binding CFB}"></RadioButton>
-                            <RadioButton Content="OFB" IsChecked="{Binding OFB}"></RadioButton>
-                            <RadioButton Content="CBC" IsChecked="{Binding CBC}"></RadioButton>
+                                <RadioButton Content="ECB" Command="{Binding SwitchDesModeCommand}" CommandParameter="ECB" IsChecked="True"></RadioButton>
+                                <RadioButton Content="CFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="CFB"></RadioButton>
+                                <RadioButton Content="OFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="OFB"></RadioButton>
+                                <RadioButton Content="CBC" Command="{Binding SwitchDesModeCommand}" CommandParameter="CBC"></RadioButton>
 
-                        </StackPanel>
+                            </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="12" HorizontalAlignment="Center"></Label>
-                            <WrapPanel>
-                                <Label Content="Key"></Label>
-                                <TextBox MinWidth="100" Text="{Binding RC4Key}"></TextBox>
-                            </WrapPanel>
-                            <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start RC$" Command="{Binding StartRC4Command}"></Button>
+                            <StackPanel>
+                                <Label Content="12" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <Label Content="Key"></Label>
+                                    <TextBox MinWidth="100" Text="{Binding RC4Key}"></TextBox>
+                                </WrapPanel>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start RC4" Command="{Binding StartRC4Command}"></Button>
 
-                        </StackPanel>
-                    </UniformGrid>
+                            </StackPanel>
+                        </UniformGrid>
+                        <ProgressBar Height="20" IsIndeterminate="{Binding IsWorking}"></ProgressBar>
+                    </StackPanel>
                 </TabItem>
 
             </TabControl>
