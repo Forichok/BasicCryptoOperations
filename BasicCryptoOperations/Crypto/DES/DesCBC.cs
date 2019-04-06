@@ -18,8 +18,10 @@ namespace BasicCryptoOperations.Crypto.DES
             _iv = iv;
         }
 
-        public void EncryptFile(string fromFile, string toFile)
+        public KeyValuePair<long, float> EncryptFile(string fromFile, string toFile)
         {
+            FileInfo file = new FileInfo(fromFile);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             using (var reader = new FileStream(fromFile, FileMode.Open))
             {
                 using (var writer = new BinaryWriter(File.Open(toFile, FileMode.OpenOrCreate)))
@@ -50,11 +52,15 @@ namespace BasicCryptoOperations.Crypto.DES
                     }
                 }
             }
+            watch.Stop();
+            return new KeyValuePair<long, float>(file.Length, watch.ElapsedMilliseconds );
         }
 
 
-        public void DecodeFile(string fromFile, string toFile)
+        public KeyValuePair<long, float> DecodeFile(string fromFile, string toFile)
         {
+            FileInfo file = new FileInfo(fromFile);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             using (var reader = new FileStream(fromFile, FileMode.Open))
             {
                 using (var writer = new BinaryWriter(File.Open(toFile, FileMode.OpenOrCreate)))
@@ -85,6 +91,8 @@ namespace BasicCryptoOperations.Crypto.DES
                     }
                 }
             }
+            watch.Stop();
+            return new KeyValuePair<long, float>(file.Length, watch.ElapsedMilliseconds );
         }
 
         private void CbcDecodeRound(string hex)
@@ -104,11 +112,6 @@ namespace BasicCryptoOperations.Crypto.DES
 
         private void CbcEncryptRound(string hex)
         {
-            // if (string.IsNullOrEmpty(CipherText)) 
-            // { 
-            // _cipherText = _iv; 
-            // } 
-
             var input = Convert.ToInt64(hex, 16) ^ Convert.ToInt64(_iv, 16);
             EncryptRound($"{input:X16}");
 

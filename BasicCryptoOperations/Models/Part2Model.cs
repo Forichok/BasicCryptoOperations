@@ -11,6 +11,8 @@ namespace BasicCryptoOperations.Models
     {
         private String number;
         private String binaryNumber;
+
+
         public String GetMaxDivider()
         {
             int.TryParse(number, out var res);

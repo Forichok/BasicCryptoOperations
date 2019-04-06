@@ -51,8 +51,11 @@ namespace BasicCryptoOperations.Crypto.DES
                 .ToArray();
         }
 
-        public void EncryptFile(string filePathFrom, string filePathTo)
+        public KeyValuePair<long,float> EncryptFile(string filePathFrom, string filePathTo)
         {
+            FileInfo file = new FileInfo(filePathFrom);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             using (var reader = new FileStream(filePathFrom, FileMode.Open))
             {
                 using (var writer = new BinaryWriter(File.Open(filePathTo, FileMode.OpenOrCreate)))
@@ -83,6 +86,8 @@ namespace BasicCryptoOperations.Crypto.DES
                     }
                 }
             }
+            watch.Stop();
+            return new KeyValuePair<long, float>(file.Length,watch.ElapsedMilliseconds/10f);
         }
 
         public void EncryptRound(string hexString)
@@ -127,8 +132,11 @@ namespace BasicCryptoOperations.Crypto.DES
             _cipherText = Modules.BinArrayToHex(final, 0);
         }
 
-        public void DecryptFile(string filePathFrom, string filePathTo)
+        public KeyValuePair<long, float> DecryptFile(string filePathFrom, string filePathTo)
         {
+            FileInfo file = new FileInfo(filePathFrom);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             using (var reader = new FileStream(filePathFrom, FileMode.Open))
             {
                 using (var writer = new BinaryWriter(File.Open(filePathTo, FileMode.OpenOrCreate)))
@@ -159,6 +167,8 @@ namespace BasicCryptoOperations.Crypto.DES
                     }
                 }
             }
+            watch.Stop();
+            return new KeyValuePair<long, float>(file.Length, watch.ElapsedMilliseconds );
         }
 
 

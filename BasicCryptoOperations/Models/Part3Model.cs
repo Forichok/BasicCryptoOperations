@@ -58,79 +58,84 @@ namespace BasicCryptoOperations.Models
             File.Move(path + "tmp", path);
         }
 
-        public void EncodeDes(string path, string key, string mode)
+        public KeyValuePair<long, float> EncodeDes(string path, string key, string mode)
         {
+            KeyValuePair<long, float> result = new KeyValuePair<long, float>();
             switch (mode)
             {
                 case "CBC":
                 {
                     var des = new DesCBC(key, DESIV);
                     des.Create();
-                    des.EncryptFile(path, path + "tmp");
+                    result=des.EncryptFile(path, path + "tmp");
                     break;
                 }
                 case "CFB":
                 {
                     var des = new DesCFB(key, DESIV);
                     des.Create();
-                    des.EncryptFile(path, path + "tmp");
+                    result = des.EncryptFile(path, path + "tmp");
                     break;
                 }
                 case "ECB":
                 {
                     var des = new Des(key);
                     des.Create();
-                    des.EncryptFile(path, path + "tmp");
+                    result = des.EncryptFile(path, path + "tmp");
                     break;
                 }
                 case "OFB":
                 {
                     var des = new DesOFB(key, DESIV);
                     des.Create();
-                    des.EncryptFile(path, path + "tmp");
+                    result = des.EncryptFile(path, path + "tmp");
                     break;
                 }
             }
             File.Delete(path);
             File.Move(path + "tmp", path);
+            return result;
         }
 
-        public void DecodeDES(string path, string key, string mode)
+        public KeyValuePair<long, float> DecodeDES(string path, string key, string mode)
         {
+            KeyValuePair<long, float> result = new KeyValuePair<long, float>();
+
             switch (mode)
             {
                 case "CBC":
                 {
                     var des = new DesCBC(key, DESIV);
                     des.Create();
-                    des.DecodeFile(path, path + "tmp");
+                    result = des.DecodeFile(path, path + "tmp");
                     break;
                 }
                 case "CFB":
                 {
                     var des = new DesCFB(key, DESIV);
                     des.Create();
-                    des.DecodeFile(path, path + "tmp");
+                    result = des.DecodeFile(path, path + "tmp");
                     break;
                 }
                 case "ECB":
                 {
                     var des = new Des(key);
                     des.Create();
-                    des.DecryptFile(path, path + "tmp");
+                    result = des.DecryptFile(path, path + "tmp");
                     break;
                 }
                 case "OFB":
                 {
                     var des = new DesOFB(key, DESIV);
                     des.Create();
-                    des.DecodeFile(path, path + "tmp");
+                    result = des.DecodeFile(path, path + "tmp");
                     break;
                 }
             }
 
             File.Delete(path);
             File.Move(path + "tmp", path);
+            return result;
         }
 
         public void StartVernam(String filePatch, String vernamKey)
