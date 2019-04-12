@@ -17,8 +17,8 @@ namespace BasicCryptoOperations.Crypto
         private static int[] nums = { 12,15,10,4,3,7,1,0,9,8,6,5,14,2,13,11};
         static MyCrypto()
         {
-            encryptTable = new Dictionary<String, bool[]>();
-            decryptTable = new Dictionary<String, bool[]>();
+            encryptTable = new Dictionary<string, bool[]>();
+            decryptTable = new Dictionary<string, bool[]>();
             for (int i = 0; i < 16; i++)
             {
                 encryptTable.Add(GetBitArray(i, 4).ToStr(), GetBitArray(nums[i], 4).ToBoolArray());
@@ -39,10 +39,8 @@ namespace BasicCryptoOperations.Crypto
                         try
                         {
                             i = reader.ReadInt32();
-                            var bitArray = new BitArray(new BitArray(BitConverter.GetBytes(i)));
-                            var a = bitArray.Split(4);
-                            var c = Encrypt(a);
-                            writer.Write(BoolArrayToInt(c.ToArray()));
+                            var c = Encrypt(i);
+                            writer.Write(c);
                         }
                         catch (Exception e)
                         {
@@ -70,10 +68,8 @@ namespace BasicCryptoOperations.Crypto
                         try
                         {
                             i = reader.ReadInt32();
-                            var bitArray = new BitArray(new BitArray(BitConverter.GetBytes(i)));
-                            var a = bitArray.Split(4);
-                            var c = Decrypt(a);
-                            writer.Write(BoolArrayToInt(c.ToArray()));
+                            var c = Decrypt(i);
+                            writer.Write(c);
                         }
                         catch (Exception e)
                         {
@@ -97,8 +93,10 @@ namespace BasicCryptoOperations.Crypto
             return bitArray;
         }
 
-        static List<bool> Encrypt(IEnumerable<BitArray> data)
+        static int Encrypt(int num)
         {
+            var bitArray = new BitArray(new BitArray(BitConverter.GetBytes(num)));
+            var data = bitArray.Split(4);
             var list = new List<bool>();
             
             foreach (var element in data)
@@ -106,11 +104,14 @@ namespace BasicCryptoOperations.Crypto
                 list.AddRange(encryptTable[element.ToStr()]);
             }
 
-            return list;
+            var result = BoolArrayToInt(list.ToArray());
+            return result;
         }
 
-        static List<bool> Decrypt(IEnumerable<BitArray> data)
+        static int Decrypt(int num)
         {
+            var bitArray = new BitArray(new BitArray(BitConverter.GetBytes(num)));
+            var data = bitArray.Split(4);
             var list = new List<bool>();
 
             foreach (var element in data)
@@ -118,7 +119,8 @@ namespace BasicCryptoOperations.Crypto
                 list.AddRange(decryptTable[element.ToStr()]);
             }
 
-            return list;
+            var result = BoolArrayToInt(list.ToArray());
+            return result;
         }
 
 
