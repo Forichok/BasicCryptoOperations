@@ -29,18 +29,7 @@ namespace BasicCryptoOperations.Models
             if (string.IsNullOrEmpty(number))
                 return "";
 
-            var isNum = int.TryParse(number, out var num);
-
-            var nearestDegree = (int) Math.Log(num, 2);
-            var bitCount = nearestDegree + 1;
-
-            var maxNum = (int) Math.Pow(2, bitCount) - 1;
-
-            var realOffset = offsetindex - offsetindex / bitCount * bitCount;
-
-            var res = 0;
-            if (isNum)
-                res = ((num << realOffset) & (maxNum)) | (num >> (bitCount - realOffset));
+            var res = ShiftLeft(offsetindex);
 
             return Convert.ToString(res, 2).PadLeft(binaryNumber.Length, '0');
         }
@@ -50,18 +39,7 @@ namespace BasicCryptoOperations.Models
             if (string.IsNullOrEmpty(number))
                 return "";
 
-            var isNum = int.TryParse(number, out var num);
-
-            var nearestDegree = (int) Math.Log(num, 2);
-            var bitCount = nearestDegree + 1;
-
-            var maxNum = (int) Math.Pow(2, bitCount) - 1;
-
-            var realOffset = offsetIndex - offsetIndex / bitCount * bitCount;
-
-            var res = 0;
-            if (isNum)
-                res = (num >> realOffset) | ((num << (bitCount - realOffset)) & (maxNum));
+            var res = ShiftRight(offsetIndex);
 
             return Convert.ToString(res, 2).PadRight(binaryNumber.Length, '0');
         }
@@ -156,6 +134,41 @@ namespace BasicCryptoOperations.Models
                 return "Error";
             }
 
+        }
+
+
+        private int ShiftLeft(int offsetindex)
+        {
+            var isNum = int.TryParse(number, out var num);
+
+            var nearestDegree = (int)Math.Log(num, 2);
+            var bitCount = nearestDegree + 1;
+
+            var maxNum = (int)Math.Pow(2, bitCount) - 1;
+
+            var realOffset = offsetindex - offsetindex / bitCount * bitCount;
+
+            var res = 0;
+            if (isNum)
+                res = ((num << realOffset) & (maxNum)) | (num >> (bitCount - realOffset));
+            return res;
+        }
+
+        private int ShiftRight(int offsetIndex)
+        {
+            var isNum = int.TryParse(number, out var num);
+
+            var nearestDegree = (int)Math.Log(num, 2);
+            var bitCount = nearestDegree + 1;
+
+            var maxNum = (int)Math.Pow(2, bitCount) - 1;
+
+            var realOffset = offsetIndex - offsetIndex / bitCount * bitCount;
+
+            var res = 0;
+            if (isNum)
+                res = (num >> realOffset) | ((num << (bitCount - realOffset)) & (maxNum));
+            return res;
         }
 
         private static String Swap(String binaryNumber, int[] permutArr)

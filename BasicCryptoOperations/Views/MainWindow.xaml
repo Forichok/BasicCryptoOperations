@@ -9,34 +9,57 @@
         xmlns:behaviors="clr-namespace:BasicCryptoOperations.Behaviors"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        FontFamily="Rockwell"
-        Title=" BasicCryptoOperations" Height="450" Width="800" FontWeight="Bold">
+        FontFamily="Arial Black"
+
+        Title=" BasicCryptoOperations" Height="800" Width="1200" Background="#FF2A0B30">
 
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
     <Grid>
-        <Grid>
-            <TabControl>
-                <TabItem Header="Part 1" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part1ViewModel}">
-                    <UniformGrid Columns="3">
-                        <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                            <UniformGrid Rows="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
 
-                                <WrapPanel>
-                                    <Label Content="Number: "></Label>
-                                    <TextBox Width="200"  MaxLength="32" >
-                                        <TextBox.Text>
-                                            <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
-                                                <Binding.ValidationRules>
-                                                    <validation:BinaryValidationRule/>
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
-                                </WrapPanel>
+        <Menu DockPanel.Dock="Top" Background="#FF843B92" Foreground="#FFE3BAE9" FontFamily="Elephant" FontSize="20">
+            <MenuItem Header="Help" Command="{Binding HelpCommand}"/>
+            <MenuItem Header="About" Command="{Binding AboutCommand}"/>
+        </Menu>
 
+
+        <Grid Row="1">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Column="0" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part1ViewModel}">
+            <StackPanel>
+                <Border Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                    <UniformGrid Rows="4">
+                        <StackPanel>
+                            <Label Content="Part 1" HorizontalAlignment="Center"></Label>
+
+                            <WrapPanel>
+                                <Label Content="Number: "></Label>
+                                <TextBox Width="200"  MaxLength="32" >
+                                    <TextBox.Text>
+                                        <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validation:BinaryValidationRule/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </WrapPanel>
+                        </StackPanel>
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="1,2" HorizontalAlignment="Center"></Label>
                                 <WrapPanel>
                                     <TextBox MinWidth="50">
                                         <TextBox.Text>
@@ -51,7 +74,12 @@
                                     <Label Content="{Binding BitValue}"></Label>
                                     <Button Height="25" Margin="20,0" Content="Inverse" Command="{Binding InverseBitCommand}"></Button>
                                 </WrapPanel>
+                            </StackPanel>
+                        </Border>
 
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="3" HorizontalAlignment="Center"></Label>
                                 <WrapPanel>
                                     <TextBox MinWidth="30">
                                         <TextBox.Text>
@@ -74,7 +102,12 @@
                                     </TextBox>
                                     <Button Margin="10,0" Content="Change" Command="{Binding ChangeBitsCommand}"></Button>
                                 </WrapPanel>
+                            </StackPanel>
+                        </Border>
 
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="4" HorizontalAlignment="Center"></Label>
                                 <WrapPanel>
                                     <Label Content="Count bits to reset"></Label>
                                     <TextBox MinWidth="20">
@@ -88,33 +121,46 @@
                                     </TextBox>
                                     <Button Content="Reset" Margin="30,0" Command="{Binding ResetBitsCommand}"></Button>
                                 </WrapPanel>
-
-                            </UniformGrid>
+                            </StackPanel>
                         </Border>
+                    </UniformGrid>
+                </Border>
 
-                        <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                            <UniformGrid Rows="4">
+
+                <Border Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                    <StackPanel>
+                        <StackPanel>
+                            <Label Content="2" HorizontalAlignment="Center"></Label>
+                            <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
                                 <StackPanel>
-                                    <WrapPanel>
-                                        <Label Content="Concatinate "></Label>
-                                        <TextBox MinWidth="30">
-                                            <TextBox.Text>
-                                                <Binding Path="BitsToConcatinate" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:BitPositionValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <Label Content="bits"></Label>
-                                        <Button Margin="10,0" Content="Concatinate" Command="{Binding ConcatinateBitsCommand}" ToolTip="Concatinate first n and last n bits"></Button>
-                                    </WrapPanel>
-                                    <WrapPanel>
-                                        <Label Content="Сoncatinated bits"></Label>
-                                        <Label Content="{Binding ConcatinatedBits}"></Label>
-                                    </WrapPanel>
+                                    <Label Content="A" HorizontalAlignment="Center"></Label>
+                                    <StackPanel>
+                                        <WrapPanel>
+                                            <Label Content="Concatinate "></Label>
+                                            <TextBox MinWidth="30">
+                                                <TextBox.Text>
+                                                    <Binding Path="BitsToConcatinate" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validation:BitPositionValidation/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <Label Content="bits"></Label>
+                                            <Button Margin="10,0" Content="Concatinate" Command="{Binding ConcatinateBitsCommand}" ToolTip="Concatinate first n and last n bits"></Button>
+                                        </WrapPanel>
+                                        <WrapPanel>
+                                            <Label Content="Сoncatinated bits"></Label>
+                                            <Label Content="{Binding ConcatinatedBits}"></Label>
+                                        </WrapPanel>
+                                    </StackPanel>
                                 </StackPanel>
+                            </Border>
+                        </StackPanel>
 
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="B" HorizontalAlignment="Center"></Label>
                                 <StackPanel>
                                     <WrapPanel>
                                         <Label Content="Get from the middle "></Label>
@@ -135,217 +181,260 @@
                                         <Label Content="{Binding BitsFromMiddle}"></Label>
                                     </WrapPanel>
                                 </StackPanel>
-                            </UniformGrid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                    <StackPanel>
+                        <Label Content="3" HorizontalAlignment="Center"></Label>
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <TextBox MinWidth="30">
+                                        <TextBox.Text>
+                                            <Binding Path="ByteI" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:ByteSwapValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Change byte with " Margin="10,0"></Label>
+                                    <TextBox MinWidth="30">
+                                        <TextBox.Text>
+                                            <Binding Path="ByteJ" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:ByteSwapValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Button Margin="10,0" Content="Swap" Command="{Binding SwapBytesCommand}"></Button>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Result bits"></Label>
+                                    <Label Content="{Binding SwapedBits}"></Label>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Column="1" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part2ViewModel}">
+            <StackPanel>
+                <Border Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                    <StackPanel>
+                        <Label Content="Part 2" HorizontalAlignment="Center"></Label>
+
+                        <WrapPanel>
+                            <Label Content="Number: "></Label>
+                            <TextBox MinWidth="50">
+                                <TextBox.Text>
+                                    <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validation:NumberValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </WrapPanel>
+
+
+
+                        <WrapPanel>
+                            <Label Name ="BinNum" Content="Binary num: "></Label>
+                            <TextBox MinWidth="50" Text="{Binding BinaryNum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </WrapPanel>
+
+
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="4" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <Label Content="Max 2^p divider of "></Label>
+                                    <TextBlock Text="{Binding Number}"></TextBlock>
+
+                                    <Label Content="p = "></Label>
+                                    <TextBlock Text="{Binding MaxDivider}"></TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="5" HorizontalAlignment="Center"></Label>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Limits}"></TextBlock>
+                            </StackPanel>
                         </Border>
 
-                        <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                            <UniformGrid Rows="3">
-                                <StackPanel>
-                                    <WrapPanel>
-                                        <TextBox MinWidth="30">
-                                            <TextBox.Text>
-                                                <Binding Path="ByteI" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:ByteSwapValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <Label Content="Change byte with " Margin="10,0"></Label>
-                                        <TextBox MinWidth="30">
-                                            <TextBox.Text>
-                                                <Binding Path="ByteJ" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:ByteSwapValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                        <Button Margin="10,0" Content="Swap" Command="{Binding SwapBytesCommand}"></Button>
-                                    </WrapPanel>
-                                    <WrapPanel>
-                                        <Label Content="Result bits"></Label>
-                                        <Label Content="{Binding SwapedBits}"></Label>
-                                    </WrapPanel>
-                                </StackPanel>
-                            </UniformGrid>
+
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="6" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <TextBlock Text="Self Xored = "></TextBlock>
+                                    <TextBlock MinWidth="20" Text="{Binding SelfXored}"></TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="7" HorizontalAlignment="Center"></Label>
+
+                                <WrapPanel>
+                                    <TextBlock Text=" Shift: "></TextBlock>
+                                    <TextBox Margin="20,0" Text="{Binding ShiftIndex,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Left: "></Label>
+                                    <TextBox Width="{Binding ElementName=BinNum,Path=Width}" Text="{Binding LeftShift}"></TextBox>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Right: "></Label>
+                                    <TextBox Width="{Binding ElementName=BinNum,Path=Width}"  Text="{Binding RightShift}"></TextBox>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#FFE3A8EF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="8" HorizontalAlignment="Center"></Label>
+
+                                <WrapPanel>
+                                    <Label Content="Swap rules: "></Label>
+                                    <TextBox MinWidth="50" Text="{Binding SwapRules, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="Swapped: "></Label>
+                                    <TextBlock Text="{Binding SwappedNumber}"></TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <Grid Column="3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part3ViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                    <Label Content="Part 3" HorizontalAlignment="Center"></Label>
+                </Border>
+
+                <Grid Grid.Row="1" VerticalAlignment="Stretch">
+                    <UniformGrid Columns="3">
+
+                        <Border Grid.Row="0" Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="9" HorizontalAlignment="Center"></Label>
+                                <Button Margin="10,2" IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
+                                <Button Margin="10,2" IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="1" Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="10" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <Label Content="Key"></Label>
+                                    <TextBox MinWidth="100">
+                                        <TextBox.Text>
+                                            <Binding Path="VermanKey" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyStringValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </WrapPanel>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
+
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="1" Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                            <StackPanel>
+                                <Label Content="12" HorizontalAlignment="Center"></Label>
+                                <WrapPanel>
+                                    <Label Content="Key"></Label>
+                                    <TextBox MinWidth="100">
+                                        <TextBox.Text>
+                                            <Binding Path="RC4Key" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyStringValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </WrapPanel>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start RC4" Command="{Binding StartRC4Command}"></Button>
+
+                            </StackPanel>
                         </Border>
                     </UniformGrid>
+                </Grid>
 
-                </TabItem>
+                <Grid Row="2">
+                    <Border VerticalAlignment="Stretch" Grid.Row="0" Background="#FFF7D2FF" BorderBrush="#FF2F005C" BorderThickness="3" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                <TabItem Header="Part 2" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part2ViewModel}">
-                    <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                        <StackPanel>
-                            <WrapPanel>
-                                <Label Content="Max 2^p divider of "></Label>
-                                <TextBox MinWidth="50">
-                                    <TextBox.Text>
-                                        <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <validation:NumberValidation/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-
-                                <Label Content="p = "></Label>
-                                <TextBlock Text="{Binding MaxDivider}"></TextBlock>
-                            </WrapPanel>
-
-                            <WrapPanel>
-
-                            </WrapPanel>
-                            <TextBlock Text="{Binding Limits}"></TextBlock>
-
-
-                            <WrapPanel>
-                                <Label Name ="BinNum" Content="Binary num: "></Label>
-                                <TextBox MinWidth="50" Text="{Binding BinaryNum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            </WrapPanel>
-                            <WrapPanel>
-                                <Label Content=" Self Xored = "></Label>
-                                <TextBlock Text="{Binding SelfXored}"></TextBlock>
-                            </WrapPanel>
-                            <WrapPanel>
-                                <Slider Name="Slider" Maximum="20" Minimum="0" MinWidth="200" Value="{Binding ShiftIndex}"/>
-                                <TextBox Margin="20,0" Text="{Binding ElementName=Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            </WrapPanel>
-                            <WrapPanel>
-                                <Label Content="Left: "></Label>
-                                <TextBox Width="{Binding ElementName=BinNum,Path=Width}" Text="{Binding LeftShift}"></TextBox>
-                                <Label Content="   Right: "></Label>
-                                <TextBox Width="{Binding ElementName=BinNum,Path=Width}"  Text="{Binding RightShift}"></TextBox>
-                            </WrapPanel>
-
-                            <WrapPanel>
-                                <Label Content="Swap rules: "></Label>
-                                <TextBox MinWidth="50" Text="{Binding SwapRules, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            </WrapPanel>
-                            <WrapPanel>
-                                <Label Content="Swapped: "></Label>
-                                <TextBlock Text="{Binding SwappedNumber}"></TextBlock>
-                            </WrapPanel>
-                        </StackPanel>
-                    </Border>
-                </TabItem>
-
-                <TabItem Header="Part 3" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Part3ViewModel}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <UniformGrid Grid.Row="0" Columns="4" VerticalAlignment="Stretch">
-                            <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                                <StackPanel>
-                                    <Label Content="9" HorizontalAlignment="Center"></Label>
-                                    <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyDecrypt" Command="{Binding DecryptCommand}"></Button>
-                                    <Button Margin="10" IsEnabled="{Binding IsReady}" Content="MyEncrypt" Command="{Binding EncryptCommand}"></Button>
-                                </StackPanel>
-                            </Border>
-
-                            <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                                <StackPanel>
-                                    <Label Content="10" HorizontalAlignment="Center"></Label>
-                                    <WrapPanel>
-                                        <Label Content="Key"></Label>
-                                        <TextBox MinWidth="100">
-                                            <TextBox.Text>
-                                                <Binding Path="VermanKey" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:NotEmptyStringValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </WrapPanel>
-                                    <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start Verman" Command="{Binding StartVermanCommand}"></Button>
-
-                                </StackPanel>
-                            </Border>
-
-                            <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                    </Grid.RowDefinitions>
-
-                                    <StackPanel Grid.Row="0">
-                                        <Label Content="11" HorizontalAlignment="Center"></Label>
-                                        <WrapPanel>
-                                            <Label Content="Key"></Label>
-                                            <TextBox MinWidth="100">
-                                                <TextBox.Text>
-                                                    <Binding Path="DESKey" UpdateSourceTrigger="PropertyChanged">
-                                                        <Binding.ValidationRules>
-                                                            <validation:DesKeyValidation/>
-                                                        </Binding.ValidationRules>
-                                                    </Binding>
-                                                </TextBox.Text>
-                                            </TextBox>
-                                        </WrapPanel>
-                                        <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
-                                        <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
-
+                            <StackPanel Grid.Row="0">
+                                <Label Content="11" HorizontalAlignment="Center"></Label>
+                                <WrapPanel HorizontalAlignment="Stretch">
+                                    <Label Content="Key"></Label>
+                                    <TextBox MinWidth="200">
+                                        <TextBox.Text>
+                                            <Binding Path="DESKey" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:DesKeyValidation/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                         <RadioButton Content="ECB" Command="{Binding SwitchDesModeCommand}" CommandParameter="ECB" IsChecked="True"></RadioButton>
                                         <RadioButton Content="CFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="CFB"></RadioButton>
                                         <RadioButton Content="OFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="OFB"></RadioButton>
                                         <RadioButton Content="CBC" Command="{Binding SwitchDesModeCommand}" CommandParameter="CBC"></RadioButton>
                                     </StackPanel>
-
-                                    <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Grid.Row="1">
-                                        <lvc:CartesianChart.AxisX>
-                                            <lvc:Axis Title="Time ms." LabelFormatter="{Binding XFormatter}"></lvc:Axis>
-                                        </lvc:CartesianChart.AxisX>
-                                        <lvc:CartesianChart.AxisY>
-                                            <lvc:Axis Title="File Size" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
-                                        </lvc:CartesianChart.AxisY>
-                                    </lvc:CartesianChart>
-                                </Grid>
+                                </WrapPanel>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
+                                <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
 
 
-                            </Border>
+                            </StackPanel>
 
-                            <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                                <StackPanel>
-                                    <Label Content="12" HorizontalAlignment="Center"></Label>
-                                    <WrapPanel>
-                                        <Label Content="Key"></Label>
-                                        <TextBox MinWidth="100">
-                                            <TextBox.Text>
-                                                <Binding Path="RC4Key" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:NotEmptyStringValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </WrapPanel>
-                                    <Button Margin="10" IsEnabled="{Binding IsReady}" Content="Start RC4" Command="{Binding StartRC4Command}"></Button>
+                            <lvc:CartesianChart VerticalAlignment="Stretch" Series="{Binding SeriesCollection}" LegendLocation="Right" Grid.Row="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Time ms." LabelFormatter="{Binding XFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="File Size" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                        </Grid>
+                    </Border>
+                </Grid>
 
-                                </StackPanel>
-                            </Border>
-                        </UniformGrid>
-                        <ProgressBar Grid.Row="1" VerticalAlignment="Bottom" Height="20" IsIndeterminate="{Binding IsWorking}"></ProgressBar>
-                    </Grid>
-                </TabItem>
-
-
-                <TabItem Header="Des speed graph">
-                    <lvc:CartesianChart Series="{Binding Part3ViewModel.SeriesCollection}" LegendLocation="Right" >
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time ms." LabelFormatter="{Binding XFormatter}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="File Size" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
-                </TabItem>
-            </TabControl>
+                <ProgressBar Grid.Row="3" VerticalAlignment="Bottom" Height="20" IsIndeterminate="{Binding IsWorking}"></ProgressBar>
+            </Grid>
         </Grid>
-
+    </Grid>
     </Grid>
 </Window>

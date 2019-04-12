@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using DevExpress.Mvvm;
 
 namespace BasicCryptoOperations.ViewModels
@@ -18,6 +20,20 @@ namespace BasicCryptoOperations.ViewModels
             Part1ViewModel = new Part1ViewModel();
             Part2ViewModel = new Part2ViewModel();
             Part3ViewModel = new Part3ViewModel();
+        }
+        public ICommand HelpCommand
+        {
+            get { return new DelegateCommand(() =>
+                {
+                    MessageBox.Show("HELP!", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+                }); }
+        }
+        public ICommand AboutCommand
+        {
+            get { return new DelegateCommand(() =>
+            {
+                MessageBox.Show("ABOUT!", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+            }); }
         }
     }
 }
