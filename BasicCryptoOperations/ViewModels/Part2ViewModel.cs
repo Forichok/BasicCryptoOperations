@@ -10,15 +10,35 @@ namespace BasicCryptoOperations.ViewModels
 {
     class Part2ViewModel : ViewModelBase
     {
+        #region Properties
+
         private Part2Model _part2Model;
         private string _number;
         private int _shiftIndex;
         private string _swapRules;
         private string _binaryNum;
 
-        public Part2ViewModel()
+        #endregion
+
+        #region Fields
+
+        public String LeftShift { get; set; }
+        public String RightShift { get; set; }
+        public String MaxDivider { get; set; }
+        public String SwappedNumber { get; set; }
+        public String Limits { get; set; }
+
+        public bool SelfXored { get; set; }
+
+        public int ShiftIndex
         {
-            _part2Model = new Part2Model();
+            get => _shiftIndex;
+            set
+            {
+                _shiftIndex = value;
+                LeftShift = _part2Model.LeftShift(value);
+                RightShift = _part2Model.RightShift(value);
+            }
         }
 
         public String Number
@@ -43,17 +63,6 @@ namespace BasicCryptoOperations.ViewModels
             }
         }
 
-        public int ShiftIndex
-        {
-            get => _shiftIndex;
-            set
-            {
-                _shiftIndex = value;
-                LeftShift = _part2Model.LeftShift(value);
-                RightShift = _part2Model.RightShift(value);
-            }
-        }
-
         public String SwapRules
         {
             get => _swapRules;
@@ -62,9 +71,7 @@ namespace BasicCryptoOperations.ViewModels
                 _swapRules = value;
                 SwappedNumber = _part2Model.Swap(SwapRules);
             }
-        }
-
-        public String SwappedNumber { get; set; }
+        }        
 
         public String BinaryNum
         {
@@ -87,6 +94,17 @@ namespace BasicCryptoOperations.ViewModels
             }
         }
 
+        #endregion
+
+        #region Constructors
+
+        public Part2ViewModel()
+        {
+            _part2Model = new Part2Model();
+        }
+
+        #endregion
+
         private void InitFields()
         {
             MaxDivider = _part2Model.GetMaxDivider();
@@ -95,11 +113,5 @@ namespace BasicCryptoOperations.ViewModels
             LeftShift = _part2Model.LeftShift(_shiftIndex);
             RightShift = _part2Model.RightShift(_shiftIndex);
         }
-
-        public String LeftShift { get; set; }
-        public String RightShift { get; set; }
-        public String MaxDivider { get; set; }
-        public bool SelfXored { get; set; }
-        public String Limits { get; set; }
     }
 }

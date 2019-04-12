@@ -267,29 +267,46 @@
                             </Border>
 
                             <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
-                                <StackPanel >
-                                    <Label Content="11" HorizontalAlignment="Center"></Label>
-                                    <WrapPanel>
-                                        <Label Content="Key"></Label>
-                                        <TextBox MinWidth="100">
-                                            <TextBox.Text>
-                                                <Binding Path="DESKey" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validation:DesKeyValidation/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
-                                    </WrapPanel>
-                                    <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
-                                    <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
 
-                                    <RadioButton Content="ECB" Command="{Binding SwitchDesModeCommand}" CommandParameter="ECB" IsChecked="True"></RadioButton>
-                                    <RadioButton Content="CFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="CFB"></RadioButton>
-                                    <RadioButton Content="OFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="OFB"></RadioButton>
-                                    <RadioButton Content="CBC" Command="{Binding SwitchDesModeCommand}" CommandParameter="CBC"></RadioButton>
+                                    <StackPanel Grid.Row="0">
+                                        <Label Content="11" HorizontalAlignment="Center"></Label>
+                                        <WrapPanel>
+                                            <Label Content="Key"></Label>
+                                            <TextBox MinWidth="100">
+                                                <TextBox.Text>
+                                                    <Binding Path="DESKey" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <validation:DesKeyValidation/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                        </WrapPanel>
+                                        <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesDecrypt" Command="{Binding DecryptDESCommand}"></Button>
+                                        <Button Margin="10" IsEnabled="{Binding IsReady}" Content="DesEncrypt" Command="{Binding EncryptDESCommand}"></Button>
 
-                                </StackPanel>
+                                        <RadioButton Content="ECB" Command="{Binding SwitchDesModeCommand}" CommandParameter="ECB" IsChecked="True"></RadioButton>
+                                        <RadioButton Content="CFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="CFB"></RadioButton>
+                                        <RadioButton Content="OFB" Command="{Binding SwitchDesModeCommand}" CommandParameter="OFB"></RadioButton>
+                                        <RadioButton Content="CBC" Command="{Binding SwitchDesModeCommand}" CommandParameter="CBC"></RadioButton>
+                                    </StackPanel>
+
+                                    <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Grid.Row="1">
+                                        <lvc:CartesianChart.AxisX>
+                                            <lvc:Axis Title="Time ms." LabelFormatter="{Binding XFormatter}"></lvc:Axis>
+                                        </lvc:CartesianChart.AxisX>
+                                        <lvc:CartesianChart.AxisY>
+                                            <lvc:Axis Title="File Size" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                        </lvc:CartesianChart.AxisY>
+                                    </lvc:CartesianChart>
+                                </Grid>
+
+
                             </Border>
 
                             <Border Background="AliceBlue" BorderBrush="DarkCyan" BorderThickness="2" Margin="5">
@@ -320,10 +337,10 @@
                 <TabItem Header="Des speed graph">
                     <lvc:CartesianChart Series="{Binding Part3ViewModel.SeriesCollection}" LegendLocation="Right" >
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Year" LabelFormatter="{Binding XFormatter}"></lvc:Axis>
+                            <lvc:Axis Title="Time ms." LabelFormatter="{Binding XFormatter}"></lvc:Axis>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Population" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                            <lvc:Axis Title="File Size" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </TabItem>

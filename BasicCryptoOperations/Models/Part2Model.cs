@@ -7,11 +7,10 @@ using DevExpress.Mvvm;
 
 namespace BasicCryptoOperations.Models
 {
-    class Part2Model:ViewModelBase
+    class Part2Model : ViewModelBase
     {
         private String number;
         private String binaryNumber;
-
 
         public String GetMaxDivider()
         {
@@ -24,7 +23,6 @@ namespace BasicCryptoOperations.Models
 
             return maxPower.ToString();
         }
-        
 
         public String LeftShift(int offsetindex)
         {
@@ -44,9 +42,8 @@ namespace BasicCryptoOperations.Models
             if (isNum)
                 res = ((num << realOffset) & (maxNum)) | (num >> (bitCount - realOffset));
 
-            return Convert.ToString(res, 2).PadLeft(binaryNumber.Length,'0');
+            return Convert.ToString(res, 2).PadLeft(binaryNumber.Length, '0');
         }
-
 
         public String RightShift(int offsetIndex)
         {
@@ -86,36 +83,36 @@ namespace BasicCryptoOperations.Models
             try
             {
 
-            var boolList = FromString(binaryNumber);
+                var boolList = FromString(binaryNumber);
 
 
-            if (boolList.Count == 1)
-            {
-                return boolList[0];
-            }
-            else if (boolList.Count == 2)
-            {
-                return boolList[0] ^ boolList[1];
-            }
-            else if (boolList.Count != 0)
-            {
-                var current = false;
-                for (var i = 0; i < boolList.Count; i++)
+                if (boolList.Count == 1)
                 {
-                    if (i == 0)
-                    {
-                        current = boolList[i] ^ boolList[i + 1];
-                        i++;
-                    }
-                    else
-                    {
-                        current = current ^ boolList[i];
-                    }
-
+                    return boolList[0];
                 }
+                else if (boolList.Count == 2)
+                {
+                    return boolList[0] ^ boolList[1];
+                }
+                else if (boolList.Count != 0)
+                {
+                    var current = false;
+                    for (var i = 0; i < boolList.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            current = boolList[i] ^ boolList[i + 1];
+                            i++;
+                        }
+                        else
+                        {
+                            current = current ^ boolList[i];
+                        }
 
-                return current;
-            }
+                    }
+
+                    return current;
+                }
             }
             catch (Exception e)
             {
@@ -124,19 +121,6 @@ namespace BasicCryptoOperations.Models
             }
 
             return false;
-        }
-
-
-        private static List<bool> FromString(string str)
-        {
-            var boolList = new List<bool>();
-
-            foreach (var ch in str)
-            {
-                boolList.Add(ch == '1');
-            }
-
-            return boolList;
         }
 
         public void SetBinaryNumber(String binaryNumber)
@@ -153,7 +137,8 @@ namespace BasicCryptoOperations.Models
         {
             try
             {
-                var permutArr = Array.ConvertAll(swapRules.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), int.Parse);
+                var permutArr = Array.ConvertAll(swapRules.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries),
+                    int.Parse);
 
 
                 if (permutArr.Length == binaryNumber.Length)
@@ -170,7 +155,7 @@ namespace BasicCryptoOperations.Models
             {
                 return "Error";
             }
-            
+
         }
 
         private static String Swap(String binaryNumber, int[] permutArr)
@@ -184,6 +169,18 @@ namespace BasicCryptoOperations.Models
             }
 
             return result.ToString();
+        }
+
+        private static List<bool> FromString(string str)
+        {
+            var boolList = new List<bool>();
+
+            foreach (var ch in str)
+            {
+                boolList.Add(ch == '1');
+            }
+
+            return boolList;
         }
     }
 }

@@ -18,10 +18,8 @@ namespace BasicCryptoOperations.Crypto.DES
             _iv = iv;
         }
 
-        public KeyValuePair<long, float> EncryptFile(string fromFile, string toFile)
+        public void EncryptFile(string fromFile, string toFile)
         {
-            FileInfo file = new FileInfo(fromFile);
-            var watch = System.Diagnostics.Stopwatch.StartNew();
             using (var reader = new FileStream(fromFile, FileMode.Open))
             {
                 using (var writer = new BinaryWriter(File.Open(toFile, FileMode.OpenOrCreate)))
@@ -52,8 +50,8 @@ namespace BasicCryptoOperations.Crypto.DES
                     }
                 }
             }
-            watch.Stop();
-            return new KeyValuePair<long, float>(file.Length, watch.ElapsedMilliseconds );
+            
+            
         }
 
         private void OfbEncryptRound(string hex)
@@ -66,11 +64,8 @@ namespace BasicCryptoOperations.Crypto.DES
             _cipherText = $"{output:X16}";
         }
 
-        public KeyValuePair<long, float> DecodeFile(string fromFile, string toFile)
+        public void DecodeFile(string fromFile, string toFile)
         {
-            FileInfo file = new FileInfo(fromFile);
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-
             using (var reader = new FileStream(fromFile, FileMode.Open))
             {
                 using (var writer = new BinaryWriter(File.Open(toFile, FileMode.OpenOrCreate)))
@@ -101,8 +96,6 @@ namespace BasicCryptoOperations.Crypto.DES
                     }
                 }
             }
-            watch.Stop();
-            return new KeyValuePair<long, float>(file.Length, watch.ElapsedMilliseconds );
         }
 
         private void OfbDecodeRound(string hex)

@@ -17,15 +17,22 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace BasicCryptoOperations.ViewModels
 {
-    class Part3ViewModel:ViewModelBase
+    class Part3ViewModel : ViewModelBase
     {
+        #region Properties
+
         private Part3Model _part3Model;
 
-        public SeriesCollection SeriesCollection { get; set; }
         private ChartValues<ObservablePoint> myEncryptValues;
         private ChartValues<ObservablePoint> myDecryptValues;
         private ChartValues<ObservablePoint> encryptValues;
         private ChartValues<ObservablePoint> decryptValues;
+
+        #endregion
+
+        #region Fields
+
+        public SeriesCollection SeriesCollection { get; set; }
         public Func<ObservablePoint, string> XFormatter { get; set; }
         public Func<ObservablePoint, string> YFormatter { get; set; }
 
@@ -34,20 +41,24 @@ namespace BasicCryptoOperations.ViewModels
         public String DESKey { get; set; } = "A1B2C3D4E5F6A7B8";
 
         public string Mode { get; set; } = "ECB";
-        
+
         public bool IsReady { get; set; } = true;
 
         public bool IsWorking => !IsReady;
 
+        #endregion
+
+        #region Constructors
 
         public Part3ViewModel()
         {
             myEncryptValues = new ChartValues<ObservablePoint>();
-            encryptValues= new ChartValues<ObservablePoint>();
-            decryptValues= new ChartValues<ObservablePoint>();
-            myDecryptValues= new ChartValues<ObservablePoint>();
+            encryptValues = new ChartValues<ObservablePoint>();
+            decryptValues = new ChartValues<ObservablePoint>();
+            myDecryptValues = new ChartValues<ObservablePoint>();
 
-            SeriesCollection =new SeriesCollection(){
+            SeriesCollection = new SeriesCollection()
+            {
                 new LineSeries
                 {
                     Title = "My Encrypt",
@@ -73,31 +84,31 @@ namespace BasicCryptoOperations.ViewModels
                     LineSmoothness = 0
                 },
             };
-                
-
 
             XFormatter = val => val.X.ToString();
             YFormatter = val => val.Y.ToString();
-            _part3Model =new Part3Model();
+            _part3Model = new Part3Model();
         }
 
+        #endregion
 
+        #region Commands
 
         public ICommand EncryptCommand
         {
             get
             {
-                    return new DelegateCommand(() =>
+                return new DelegateCommand(() =>
+                {
+                    Task.Factory.StartNew(() =>
                     {
-                        Task.Factory.StartNew(() =>
-                        {
-                            App.Current.Dispatcher.Invoke(() => IsReady = false);
-                            String fileName = GetFileName();
-                            if (fileName != "")
-                                _part3Model.Encrypt(fileName);
-                            App.Current.Dispatcher.Invoke(() => IsReady = true);
-                        });
+                        App.Current.Dispatcher.Invoke(() => IsReady = false);
+                        String fileName = GetFileName();
+                        if (fileName != "")
+                            _part3Model.Encrypt(fileName);
+                        App.Current.Dispatcher.Invoke(() => IsReady = true);
                     });
+                });
             }
         }
 
@@ -119,7 +130,6 @@ namespace BasicCryptoOperations.ViewModels
             }
         }
 
-
         public ICommand EncryptDESCommand
         {
             get
@@ -128,58 +138,33 @@ namespace BasicCryptoOperations.ViewModels
                 {
                     if (DESKey.Length == 16)
                     {
-                        
                         String fileName = GetFileName();
-                        var standardRes = DesEncrypt(fileName,DESKey);
-                        var sPoint = new ObservablePoint(standardRes.Key, standardRes.Value);
-                        encryptValues.Add(sPoint);
-                        Task.Factory.StartNew(() =>
+                        if (fileName != "")
                         {
-                            App.Current.Dispatcher.Invoke(() => IsReady = false);
-                            
+                            FileInfo file = new FileInfo(fileName);
+                            var watch = System.Diagnostics.Stopwatch.StartNew();
+                            DesEncrypt(fileName, DESKey);
+                            watch.Stop();
+                            var sPoint = new ObservablePoint(file.Length, watch.ElapsedMilliseconds);
+                            encryptValues.Add(sPoint);
 
-                            if (fileName != "")
+
+                            Task.Factory.StartNew(() =>
                             {
-                                var res = _part3Model.EncodeDes(fileName, DESKey, Mode);
+                                App.Current.Dispatcher.Invoke(() => IsReady = false);
+                                watch.Restart();
+                                _part3Model.EncodeDes(fileName, DESKey, Mode);
+                                watch.Stop();
+                                var point = new ObservablePoint(file.Length, watch.ElapsedMilliseconds);
 
-                                var point = new ObservablePoint(res.Key,res.Value);
                                 App.Current.Dispatcher.Invoke(() => myEncryptValues.Add(point));
-                                
-                            }
-
-                            App.Current.Dispatcher.Invoke(() => IsReady = true);
-                        });
+                                App.Current.Dispatcher.Invoke(() => IsReady = true);
+                            });
+                        }
                     }
                 });
-
             }
         }
-
-        public KeyValuePair<long, float> DesEncrypt(string pToEncrypt, string sKey)
-        {
-            sKey = sKey.Substring(0, 8);
-            FileInfo file = new FileInfo(pToEncrypt);
-            
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            var str = File.ReadAllText(pToEncrypt);
-            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-            byte[] inputByteArray = Encoding.Default.GetBytes(str);
-            des.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
-            des.IV = ASCIIEncoding.ASCII.GetBytes(sKey);
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write);
-            cs.Write(inputByteArray, 0, inputByteArray.Length);
-            cs.FlushFinalBlock();
-            StringBuilder ret = new StringBuilder();
-            foreach (byte b in ms.ToArray())
-            {
-                ret.AppendFormat("{0:X2}", b);
-            }
-            ret.ToString();
-            watch.Stop();
-            return new KeyValuePair<long, float>(file.Length, watch.ElapsedMilliseconds*10);
-        }
-
 
         public ICommand DecryptDESCommand
         {
@@ -189,14 +174,27 @@ namespace BasicCryptoOperations.ViewModels
                 {
                     if (DESKey.Length == 16)
                     {
-                        Task.Factory.StartNew(() =>
+                        String fileName = GetFileName();
+                        if (fileName != "")
                         {
-                            App.Current.Dispatcher.Invoke(() => IsReady = false);
-                            String fileName = GetFileName();
-                            if (fileName != "")
-                                _part3Model.DecodeDES(fileName, DESKey, Mode);
-                            App.Current.Dispatcher.Invoke(() => IsReady = true);
-                        });
+                            FileInfo file = new FileInfo(fileName);
+                            var watch = System.Diagnostics.Stopwatch.StartNew();
+                            DesDecrypt(fileName, DESKey);
+                            watch.Stop();
+                            var sPoint = new ObservablePoint(file.Length, watch.ElapsedMilliseconds);
+                            decryptValues.Add(sPoint);
+
+                            Task.Factory.StartNew(() =>
+                            {
+                                App.Current.Dispatcher.Invoke(() => IsReady = false);
+                                watch.Restart();
+                                _part3Model.DecodeDes(fileName, DESKey, Mode);
+                                watch.Stop();
+                                var point = new ObservablePoint(file.Length, watch.ElapsedMilliseconds);
+                                App.Current.Dispatcher.Invoke(() => myDecryptValues.Add(point));
+                                App.Current.Dispatcher.Invoke(() => IsReady = true);
+                            });
+                        }
                     }
                 });
             }
@@ -204,14 +202,7 @@ namespace BasicCryptoOperations.ViewModels
 
         public ICommand SwitchDesModeCommand
         {
-            get
-            {
-                return new DelegateCommand<String>((mode) =>
-                {
-                    Mode = mode;
-                });
-
-            }
+            get { return new DelegateCommand<String>((mode) => { Mode = mode; }); }
         }
 
         public ICommand StartRC4Command
@@ -225,7 +216,7 @@ namespace BasicCryptoOperations.ViewModels
                         App.Current.Dispatcher.Invoke(() => IsReady = false);
                         String fileName = GetFileName();
                         if (fileName != "")
-                            _part3Model.StartRC4(fileName,RC4Key);
+                            _part3Model.StartRC4(fileName, RC4Key);
                         App.Current.Dispatcher.Invoke(() => IsReady = true);
                     });
                 });
@@ -243,12 +234,16 @@ namespace BasicCryptoOperations.ViewModels
                         App.Current.Dispatcher.Invoke(() => IsReady = false);
                         String fileName = GetFileName();
                         if (fileName != "")
-                            _part3Model.StartVernam(fileName,VermanKey);
+                            _part3Model.StartVernam(fileName, VermanKey);
                         App.Current.Dispatcher.Invoke(() => IsReady = true);
                     });
                 });
             }
         }
+
+        #endregion
+
+        #region Helper functions
 
         private static String GetFileName()
         {
@@ -265,5 +260,49 @@ namespace BasicCryptoOperations.ViewModels
             }
         }
 
+        private static void DesEncrypt(string pToEncrypt, string sKey)
+        {
+            sKey = sKey.Substring(0, 8);
+
+            var str = File.ReadAllText(pToEncrypt);
+            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            byte[] inputByteArray = Encoding.Default.GetBytes(str);
+            des.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
+            des.IV = ASCIIEncoding.ASCII.GetBytes(sKey);
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write);
+            cs.Write(inputByteArray, 0, inputByteArray.Length);
+            cs.FlushFinalBlock();
+            StringBuilder ret = new StringBuilder();
+            foreach (byte b in ms.ToArray())
+            {
+                ret.AppendFormat("{0:X2}", b);
+            }
+
+            ret.ToString();
+        }
+
+        private static void DesDecrypt(string pToEncrypt, string sKey)
+        {
+            sKey = sKey.Substring(0, 8);
+
+            var str = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(File.ReadAllText(pToEncrypt)));
+
+            byte[] bytes = ASCIIEncoding.ASCII.GetBytes("ZeroCool");
+            if (String.IsNullOrEmpty(str))
+            {
+                throw new ArgumentNullException
+                    ("The string which needs to be decrypted can not be null.");
+            }
+            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
+            MemoryStream memoryStream = new MemoryStream
+                (Convert.FromBase64String(str));
+            CryptoStream cryptoStream = new CryptoStream(memoryStream,
+                cryptoProvider.CreateDecryptor(bytes, bytes), CryptoStreamMode.Read);
+            StreamReader reader = new StreamReader(cryptoStream);
+            var result = reader.ReadToEnd();
+        }
+
+        #endregion
     }
 }

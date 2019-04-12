@@ -142,6 +142,7 @@ namespace BasicCryptoOperations.Models
                 return number;
             }
         }
+
         private static IEnumerable<string> Split(string str, int chunkSize)
         {
             return Enumerable.Range(0, str.Length / chunkSize)

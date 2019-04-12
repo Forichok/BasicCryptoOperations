@@ -98,9 +98,6 @@
     <Compile Include="Crypto\DES\Des.cs" />
     <Compile Include="Crypto\DES\DesModules.cs" />
     <Compile Include="Crypto\DES\DesOFB.cs" />
-    <Compile Include="Crypto\DES_0\CypherOperationResults.cs" />
-    <Compile Include="Crypto\DES_0\DES.cs" />
-    <Compile Include="Crypto\DES_0\DESExec.cs" />
     <Compile Include="Crypto\MyCrypto.cs" />
     <Compile Include="Crypto\RC4.cs" />
     <Compile Include="Extensions\BigIntegerExtension.cs" />
